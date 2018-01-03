@@ -1,0 +1,541 @@
+g++ -g -Wall -fPIC -pthread -m64 -I/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include -c UVevent.cxx
+UVevent.cxx:10:21: error: Vevent.h: No such file or directory
+UVevent.cxx:35: error: ISO C++ forbids declaration of ‘UVevent’ with no type
+UVevent.cxx:35: error: expected ‘,’ or ‘...’ before ‘*’ token
+UVevent.cxx:35: error: ‘UVevent’ was not declared in this scope
+UVevent.cxx:35: error: expected primary-expression before ‘)’ token
+UVevent.cxx:36: error: ISO C++ forbids declaration of ‘Waveform’ with no type
+UVevent.cxx:36: error: expected ‘,’ or ‘...’ before ‘*’ token
+UVevent.cxx:36: error: ‘Waveform’ was not declared in this scope
+UVevent.cxx:36: error: expected primary-expression before ‘)’ token
+UVevent.cxx:38: error: ‘UVevent’ has not been declared
+UVevent.cxx:43: error: ‘UVevent’ has not been declared
+UVevent.cxx:43: error: ISO C++ forbids declaration of ‘UVevent’ with no type
+UVevent.cxx: In function ‘int UVevent()’:
+UVevent.cxx:48: error: invalid use of incomplete type ‘struct TClonesArray’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TObject.h:212: error: forward declaration of ‘struct TClonesArray’
+UVevent.cxx:49: error: ‘fwav’ was not declared in this scope
+UVevent.cxx:50: error: ‘fnwav’ was not declared in this scope
+UVevent.cxx:51: error: ‘WavDimSize’ was not declared in this scope
+UVevent.cxx:52: error: ‘WavSampleRate’ was not declared in this scope
+UVevent.cxx:53: error: ‘WavDeltat’ was not declared in this scope
+UVevent.cxx:54: error: ‘steps’ was not declared in this scope
+UVevent.cxx:55: warning: no return statement in function returning non-void
+UVevent.cxx: At global scope:
+UVevent.cxx:57: error: expected constructor, destructor, or type conversion before ‘::’ token
+UVevent.cxx:61: error: ‘UVevent’ is not a class or namespace
+UVevent.cxx: In function ‘void Initialize()’:
+UVevent.cxx:62: error: ‘WavDimSize’ was not declared in this scope
+UVevent.cxx:63: error: ‘WavDeltat’ was not declared in this scope
+UVevent.cxx:63: error: ‘WavSampleRate’ was not declared in this scope
+UVevent.cxx:64: error: ‘t’ was not declared in this scope
+UVevent.cxx:65: error: ‘fz’ was not declared in this scope
+UVevent.cxx: At global scope:
+UVevent.cxx:69: error: ‘UVevent’ is not a class or namespace
+UVevent.cxx:72: error: ‘UVevent’ is not a class or namespace
+UVevent.cxx: In function ‘void Clear(const Option_t*)’:
+UVevent.cxx:74: error: ‘fwav’ was not declared in this scope
+UVevent.cxx:75: error: ‘fnwav’ was not declared in this scope
+UVevent.cxx:76: error: ‘t’ was not declared in this scope
+UVevent.cxx:77: error: ‘fz’ was not declared in this scope
+UVevent.cxx: At global scope:
+UVevent.cxx:87: error: ‘Waveform’ has not been declared
+UVevent.cxx:87: error: ISO C++ forbids declaration of ‘Waveform’ with no type
+UVevent.cxx: In function ‘int Waveform()’:
+UVevent.cxx:91: error: ‘fsplinewav’ was not declared in this scope
+UVevent.cxx:92: error: ‘fsplinecfd’ was not declared in this scope
+UVevent.cxx:93: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:94: error: ‘hwav_raw’ was not declared in this scope
+UVevent.cxx:95: error: ‘xvector’ was not declared in this scope
+UVevent.cxx:96: error: ‘hbg’ was not declared in this scope
+UVevent.cxx:97: error: ‘hcfd’ was not declared in this scope
+UVevent.cxx:98: error: ‘hpedhist’ was not declared in this scope
+UVevent.cxx:99: error: ‘Samplerate’ was not declared in this scope
+UVevent.cxx:100: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:101: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:102: error: ‘baseline’ was not declared in this scope
+UVevent.cxx:103: error: ‘CutoffFrequency’ was not declared in this scope
+UVevent.cxx:104: error: ‘PointsPerSpline’ was not declared in this scope
+UVevent.cxx:105: error: ‘Fraction_CFD’ was not declared in this scope
+UVevent.cxx:106: error: ‘Delay_CFD’ was not declared in this scope
+UVevent.cxx:107: error: ‘DisWindow_min’ was not declared in this scope
+UVevent.cxx:108: error: ‘DisWindow_max’ was not declared in this scope
+UVevent.cxx:109: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:110: error: ‘FitWindow_max’ was not declared in this scope
+UVevent.cxx:111: error: ‘GaussRange_min’ was not declared in this scope
+UVevent.cxx:112: error: ‘GaussRange_max’ was not declared in this scope
+UVevent.cxx:114: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:115: error: ‘MinimumTot’ was not declared in this scope
+UVevent.cxx:116: error: ‘DoFFT’ was not declared in this scope
+UVevent.cxx:117: error: ‘IfDynamicWindow’ was not declared in this scope
+UVevent.cxx:118: warning: no return statement in function returning non-void
+UVevent.cxx: At global scope:
+UVevent.cxx:120: error: expected constructor, destructor, or type conversion before ‘::’ token
+UVevent.cxx:127: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘void Clear(const Option_t*)’:
+UVevent.cxx:127: error: redefinition of ‘void Clear(const Option_t*)’
+UVevent.cxx:72: error: ‘void Clear(const Option_t*)’ previously defined here
+UVevent.cxx:131: error: cannot call member function ‘virtual void TObject::Clear(const Option_t*)’ without object
+UVevent.cxx:132: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:133: error: ‘hbg’ was not declared in this scope
+UVevent.cxx:134: error: ‘hwav_raw’ was not declared in this scope
+UVevent.cxx:135: error: ‘xvector’ was not declared in this scope
+UVevent.cxx:136: error: ‘hcfd’ was not declared in this scope
+UVevent.cxx:137: error: ‘hpedhist’ was not declared in this scope
+UVevent.cxx:138: error: ‘fsplinewav’ was not declared in this scope
+UVevent.cxx:139: error: ‘fsplinecfd’ was not declared in this scope
+UVevent.cxx:140: error: ‘bg’ was not declared in this scope
+UVevent.cxx:141: error: ‘vol’ was not declared in this scope
+UVevent.cxx:142: error: ‘vol_raw’ was not declared in this scope
+UVevent.cxx:143: error: ‘vol_fft’ was not declared in this scope
+UVevent.cxx:144: error: ‘re_fft’ was not declared in this scope
+UVevent.cxx:145: error: ‘im_fft’ was not declared in this scope
+UVevent.cxx: At global scope:
+UVevent.cxx:148: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘void Initialize(float*, int)’:
+UVevent.cxx:152: error: ‘WavName’ was not declared in this scope
+UVevent.cxx:152: error: ‘chno’ was not declared in this scope
+UVevent.cxx:152: error: ‘evtno’ was not declared in this scope
+UVevent.cxx:153: error: ‘WavNameRaw’ was not declared in this scope
+UVevent.cxx:154: error: ‘CFDName’ was not declared in this scope
+UVevent.cxx:155: error: ‘xvectorname’ was not declared in this scope
+UVevent.cxx:156: error: ‘PEDName’ was not declared in this scope
+UVevent.cxx:157: error: ‘BgName’ was not declared in this scope
+UVevent.cxx:159: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:159: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:159: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:160: error: ‘hwav_raw’ was not declared in this scope
+UVevent.cxx:161: error: ‘xvector’ was not declared in this scope
+UVevent.cxx:161: error: ‘steps’ was not declared in this scope
+UVevent.cxx:162: error: ‘hbg’ was not declared in this scope
+UVevent.cxx:163: error: ‘hcfd’ was not declared in this scope
+UVevent.cxx:164: error: ‘hpedhist’ was not declared in this scope
+UVevent.cxx:167: error: ‘vol_raw’ was not declared in this scope
+UVevent.cxx:181: error: ‘Calculate_baseline2’ was not declared in this scope
+UVevent.cxx:187: error: ‘vol’ was not declared in this scope
+UVevent.cxx:196: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:197: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:199: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:200: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:201: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:202: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:230: error: ‘vol’ was not declared in this scope
+UVevent.cxx:230: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:231: error: ‘vol’ was not declared in this scope
+UVevent.cxx:231: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:232: error: ‘vol’ was not declared in this scope
+UVevent.cxx:232: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:233: error: ‘vol’ was not declared in this scope
+UVevent.cxx:245: error: ‘vol’ was not declared in this scope
+UVevent.cxx:246: error: ‘vol’ was not declared in this scope
+UVevent.cxx:247: error: ‘vol’ was not declared in this scope
+UVevent.cxx:248: error: ‘vol’ was not declared in this scope
+UVevent.cxx:251: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:252: error: ‘Fraction_CFD’ was not declared in this scope
+UVevent.cxx:253: error: ‘Delay_CFD’ was not declared in this scope
+UVevent.cxx:254: error: ‘AnalysisOption’ was not declared in this scope
+UVevent.cxx:178: warning: unused variable ‘s’
+UVevent.cxx:184: warning: unused variable ‘Ts’
+UVevent.cxx: At global scope:
+UVevent.cxx:257: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx:263: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx:269: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float Calculate_baseline(float*)’:
+UVevent.cxx:270: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:270: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:275: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:277: error: ‘baseline’ was not declared in this scope
+UVevent.cxx:277: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:280: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:275: warning: ‘f1’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: warning: forward declaration of ‘struct TF1’
+UVevent.cxx:280: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx: At global scope:
+UVevent.cxx:287: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float Calculate_baseline2(float*, int)’:
+UVevent.cxx:307: error: ‘baseline’ was not declared in this scope
+UVevent.cxx:309: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:312: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:314: error: ‘bnoise’ was not declared in this scope
+UVevent.cxx:314: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:316: error: ‘bnoise’ was not declared in this scope
+UVevent.cxx:322: error: ‘hpedhist’ was not declared in this scope
+UVevent.cxx:325: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:309: warning: ‘mgf’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: warning: forward declaration of ‘struct TF1’
+UVevent.cxx:325: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:305: warning: unused variable ‘bgmean’
+UVevent.cxx:306: warning: unused variable ‘meanped’
+UVevent.cxx: At global scope:
+UVevent.cxx:336: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float Calculate_baseline3()’:
+UVevent.cxx:338: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:340: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:341: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:342: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:343: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:344: error: ‘hwav_raw’ was not declared in this scope
+UVevent.cxx:347: warning: no return statement in function returning non-void
+UVevent.cxx: At global scope:
+UVevent.cxx:352: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘int Calculate_Peaks()’:
+UVevent.cxx:353: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:354: error: ‘TotThreshold’ was not declared in this scope
+UVevent.cxx:356: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:358: error: ‘MinimumTot’ was not declared in this scope
+UVevent.cxx:358: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:355: warning: unused variable ‘vollast’
+UVevent.cxx: At global scope:
+UVevent.cxx:372: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float FWPM(float)’:
+UVevent.cxx:378: error: ‘amp’ was not declared in this scope
+UVevent.cxx:379: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:392: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx: At global scope:
+UVevent.cxx:400: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float Calculate_amp()’:
+UVevent.cxx:402: error: ‘amp’ was not declared in this scope
+UVevent.cxx:402: error: ‘hwav’ was not declared in this scope
+UVevent.cxx: At global scope:
+UVevent.cxx:406: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float Calculate_Charge()’:
+UVevent.cxx:407: error: ‘qtot’ was not declared in this scope
+UVevent.cxx:407: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:407: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:408: error: ‘qfast’ was not declared in this scope
+UVevent.cxx:408: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:408: error: ‘FitWindow_max’ was not declared in this scope
+UVevent.cxx:409: error: ‘gain’ was not declared in this scope
+UVevent.cxx:410: warning: no return statement in function returning non-void
+UVevent.cxx: At global scope:
+UVevent.cxx:413: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx:420: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘double Calculate_RisingTime()’:
+UVevent.cxx:421: error: ‘amp’ was not declared in this scope
+UVevent.cxx:421: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:421: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:422: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:426: error: ‘amp’ was not declared in this scope
+UVevent.cxx:432: error: ‘amp’ was not declared in this scope
+UVevent.cxx:440: error: ‘risingtime’ was not declared in this scope
+UVevent.cxx:425: warning: unused variable ‘peaktime’
+UVevent.cxx: At global scope:
+UVevent.cxx:444: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx:451: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx:464: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘void Waveform_FFT()’:
+UVevent.cxx:467: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:470: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:482: error: incomplete type ‘TVirtualFFT’ used in nested name specifier
+UVevent.cxx:486: error: invalid use of incomplete type ‘struct TVirtualFFT’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:72: error: forward declaration of ‘struct TVirtualFFT’
+UVevent.cxx:493: error: ‘CutoffFrequency’ was not declared in this scope
+UVevent.cxx:493: warning: unused variable ‘f’
+UVevent.cxx:511: error: incomplete type ‘TVirtualFFT’ used in nested name specifier
+UVevent.cxx:512: error: invalid use of incomplete type ‘struct TVirtualFFT’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:72: error: forward declaration of ‘struct TVirtualFFT’
+UVevent.cxx:513: error: invalid use of incomplete type ‘struct TVirtualFFT’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:72: error: forward declaration of ‘struct TVirtualFFT’
+UVevent.cxx:519: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:522: error: ‘vol_fft’ was not declared in this scope
+UVevent.cxx:523: error: ‘re_fft’ was not declared in this scope
+UVevent.cxx:541: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:482: warning: ‘fft’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:72: warning: forward declaration of ‘struct TVirtualFFT’
+UVevent.cxx:541: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:542: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:511: warning: ‘fft_back’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:72: warning: forward declaration of ‘struct TVirtualFFT’
+UVevent.cxx:542: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:480: warning: unused variable ‘re’
+UVevent.cxx:480: warning: unused variable ‘im’
+UVevent.cxx: At global scope:
+UVevent.cxx:554: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘void Calculate_fitrange()’:
+UVevent.cxx:555: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:558: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:559: error: ‘amp’ was not declared in this scope
+UVevent.cxx:564: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:564: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:566: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:567: error: ‘FitWindow_max’ was not declared in this scope
+UVevent.cxx: At global scope:
+UVevent.cxx:572: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘void Waveform_Fit()’:
+UVevent.cxx:573: error: ‘SplineName’ was not declared in this scope
+UVevent.cxx:573: error: ‘chno’ was not declared in this scope
+UVevent.cxx:573: error: ‘evtno’ was not declared in this scope
+UVevent.cxx:574: error: ‘SplineTitle’ was not declared in this scope
+UVevent.cxx:575: error: ‘amp’ was not declared in this scope
+UVevent.cxx:575: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:575: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:577: error: ‘IfDynamicWindow’ was not declared in this scope
+UVevent.cxx:578: error: ‘fsplinewav’ was not declared in this scope
+UVevent.cxx:578: error: expected type-specifier before ‘TSplineFit’
+UVevent.cxx:578: error: expected ‘;’ before ‘TSplineFit’
+UVevent.cxx: At global scope:
+UVevent.cxx:585: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float CFD_Discriminator1()’:
+UVevent.cxx:586: error: ‘amp’ was not declared in this scope
+UVevent.cxx:586: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:586: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:586: error: cannot convert ‘int’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:588: error: ‘IfDynamicWindow’ was not declared in this scope
+UVevent.cxx:590: error: ‘SetFraction_CFD’ was not declared in this scope
+UVevent.cxx:591: error: ‘Fraction_CFD’ was not declared in this scope
+UVevent.cxx:594: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:596: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:600: error: ‘fsplinewav’ was not declared in this scope
+UVevent.cxx:600: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:600: error: cannot convert ‘double’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:604: error: ‘fsplinewav’ was not declared in this scope
+UVevent.cxx:605: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:605: error: cannot convert ‘double’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:606: error: ‘fsplinewav’ was not declared in this scope
+UVevent.cxx:611: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:611: error: cannot convert ‘double’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:613: error: cannot convert ‘time_t (*)(time_t*)throw ()’ to ‘float’ in return
+UVevent.cxx: At global scope:
+UVevent.cxx:617: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float CFD_Discriminator2()’:
+UVevent.cxx:618: error: ‘CFDSplineName’ was not declared in this scope
+UVevent.cxx:618: error: ‘chno’ was not declared in this scope
+UVevent.cxx:618: error: ‘evtno’ was not declared in this scope
+UVevent.cxx:619: error: ‘CFDSplineTitle’ was not declared in this scope
+UVevent.cxx:620: error: ‘amp’ was not declared in this scope
+UVevent.cxx:620: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:620: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:620: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:620: error: cannot convert ‘int’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:622: error: ‘IfDynamicWindow’ was not declared in this scope
+UVevent.cxx:623: error: ‘Delay_CFD’ was not declared in this scope
+UVevent.cxx:623: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:624: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:624: error: ‘hcfd’ was not declared in this scope
+UVevent.cxx:624: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:625: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:627: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:630: error: ‘Fraction_CFD’ was not declared in this scope
+UVevent.cxx:631: error: ‘hcfd’ was not declared in this scope
+UVevent.cxx:632: error: ‘fsplinecfd’ was not declared in this scope
+UVevent.cxx:632: error: expected type-specifier before ‘TSplineFit’
+UVevent.cxx:632: error: expected ‘;’ before ‘TSplineFit’
+UVevent.cxx:640: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:644: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:644: error: cannot convert ‘double’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:649: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:649: error: cannot convert ‘double’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:655: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:655: error: cannot convert ‘double’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:659: error: cannot convert ‘time_t (*)(time_t*)throw ()’ to ‘float’ in return
+UVevent.cxx: At global scope:
+UVevent.cxx:662: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘float GaussFit()’:
+UVevent.cxx:664: error: ‘chno’ was not declared in this scope
+UVevent.cxx:664: error: ‘evtno’ was not declared in this scope
+UVevent.cxx:665: error: ‘amp’ was not declared in this scope
+UVevent.cxx:665: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:665: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:665: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:665: error: cannot convert ‘int’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:667: error: ‘IfDynamicWindow’ was not declared in this scope
+UVevent.cxx:668: error: ‘DimSize’ was not declared in this scope
+UVevent.cxx:668: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:668: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:669: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:671: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:672: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:673: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:674: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:675: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:675: error: ‘FitWindow_max’ was not declared in this scope
+UVevent.cxx:677: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:679: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:679: error: cannot convert ‘double’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:680: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:668: warning: ‘mgf’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: warning: forward declaration of ‘struct TF1’
+UVevent.cxx:680: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:670: warning: unused variable ‘peaktime’
+UVevent.cxx:682: error: cannot convert ‘time_t (*)(time_t*)throw ()’ to ‘float’ in return
+UVevent.cxx: At global scope:
+UVevent.cxx:689: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘Float_t DoubleGaussFit(bool)’:
+UVevent.cxx:691: error: ‘gmean’ was not declared in this scope
+UVevent.cxx:691: error: ‘gpeak’ was not declared in this scope
+UVevent.cxx:691: error: ‘gsigma’ was not declared in this scope
+UVevent.cxx:691: error: ‘gtime’ was not declared in this scope
+UVevent.cxx:691: error: ‘gchi2’ was not declared in this scope
+UVevent.cxx:693: error: ‘ggmean’ was not declared in this scope
+UVevent.cxx:693: error: ‘ggpeak’ was not declared in this scope
+UVevent.cxx:693: error: ‘ggsigma’ was not declared in this scope
+UVevent.cxx:693: error: ‘ggmean2’ was not declared in this scope
+UVevent.cxx:694: error: ‘ggpeak2’ was not declared in this scope
+UVevent.cxx:694: error: ‘ggsigma2’ was not declared in this scope
+UVevent.cxx:694: error: ‘ggtime’ was not declared in this scope
+UVevent.cxx:694: error: ‘ggtime2’ was not declared in this scope
+UVevent.cxx:695: error: ‘ggoffset’ was not declared in this scope
+UVevent.cxx:695: error: ‘ggchi2’ was not declared in this scope
+UVevent.cxx:697: error: ‘amp’ was not declared in this scope
+UVevent.cxx:697: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:697: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:697: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:697: error: cannot convert ‘int’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:699: error: ‘IfDynamicWindow’ was not declared in this scope
+UVevent.cxx:701: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:706: error: ‘FitWindow_max’ was not declared in this scope
+UVevent.cxx:706: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:707: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:708: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:709: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:709: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:710: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:714: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:716: error: ‘GaussRange_min’ was not declared in this scope
+UVevent.cxx:717: error: ‘GaussRange_max’ was not declared in this scope
+UVevent.cxx:722: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:723: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:728: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:729: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:730: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:731: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:734: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:735: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:736: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:738: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:740: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:747: error: ‘goffset’ was not declared in this scope
+UVevent.cxx:749: error: ‘gdegfree’ was not declared in this scope
+UVevent.cxx:751: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:707: warning: ‘mgf’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: warning: forward declaration of ‘struct TF1’
+UVevent.cxx:751: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:752: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:721: warning: ‘mgf2’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: warning: forward declaration of ‘struct TF1’
+UVevent.cxx:752: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:757: error: cannot convert ‘time_t (*)(time_t*)throw ()’ to ‘Float_t’ in return
+UVevent.cxx: At global scope:
+UVevent.cxx:763: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx: In function ‘Float_t DoubleDoubleGaussFit()’:
+UVevent.cxx:765: error: ‘ggmean’ was not declared in this scope
+UVevent.cxx:765: error: ‘ggpeak’ was not declared in this scope
+UVevent.cxx:765: error: ‘ggsigma’ was not declared in this scope
+UVevent.cxx:765: error: ‘ggmean2’ was not declared in this scope
+UVevent.cxx:766: error: ‘ggpeak2’ was not declared in this scope
+UVevent.cxx:766: error: ‘ggsigma2’ was not declared in this scope
+UVevent.cxx:766: error: ‘ggtime’ was not declared in this scope
+UVevent.cxx:766: error: ‘ggtime2’ was not declared in this scope
+UVevent.cxx:767: error: ‘ggoffset’ was not declared in this scope
+UVevent.cxx:767: error: ‘ggchi2’ was not declared in this scope
+UVevent.cxx:770: error: ‘chno’ was not declared in this scope
+UVevent.cxx:770: error: ‘evtno’ was not declared in this scope
+UVevent.cxx:771: error: ‘amp’ was not declared in this scope
+UVevent.cxx:771: error: ‘AmpThreshold’ was not declared in this scope
+UVevent.cxx:771: error: ‘npeaks’ was not declared in this scope
+UVevent.cxx:771: error: assignment of function ‘time_t time(time_t*)’
+UVevent.cxx:771: error: cannot convert ‘int’ to ‘time_t(time_t*)throw ()’ in assignment
+UVevent.cxx:773: error: ‘IfDynamicWindow’ was not declared in this scope
+UVevent.cxx:775: error: ‘hwav’ was not declared in this scope
+UVevent.cxx:780: error: ‘FitWindow_max’ was not declared in this scope
+UVevent.cxx:780: error: ‘FitWindow_min’ was not declared in this scope
+UVevent.cxx:781: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:782: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:783: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:783: error: ‘Deltat’ was not declared in this scope
+UVevent.cxx:784: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:788: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:795: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:797: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:798: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:799: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:800: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:801: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:802: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:803: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:806: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:807: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:808: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:810: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:811: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:812: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:813: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:814: error: invalid use of incomplete type ‘struct TF1’
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: error: forward declaration of ‘struct TF1’
+UVevent.cxx:827: error: ‘ggdegfree’ was not declared in this scope
+UVevent.cxx:829: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:781: warning: ‘mgf’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: warning: forward declaration of ‘struct TF1’
+UVevent.cxx:829: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:830: warning: possible problem detected in invocation of delete operator:
+UVevent.cxx:795: warning: ‘mgf2’ has incomplete type
+/grid/fermiapp/products/uboone/root/v5_34_04/Linux64bit-2-6-2-5/include/TH1.h:66: warning: forward declaration of ‘struct TF1’
+UVevent.cxx:830: note: neither the destructor nor the class-specific operator delete will be called, even if they are declared when the class is defined.
+UVevent.cxx:835: error: cannot convert ‘time_t (*)(time_t*)throw ()’ to ‘Float_t’ in return
+UVevent.cxx: At global scope:
+UVevent.cxx:838: error: ‘Waveform’ is not a class or namespace
+UVevent.cxx:838: error: ‘TemplateFit’ was not declared in this scope
+UVevent.cxx:838: error: ‘mtf’ was not declared in this scope
+UVevent.cxx:838: error: expected ‘,’ or ‘;’ before ‘{’ token
+make: *** [UVevent.o] Error 1
