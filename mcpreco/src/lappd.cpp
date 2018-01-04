@@ -1,4 +1,4 @@
-///----------APS Analysis 
+///----------APS Analysis
 //----------Author's Name:Jingbo WANG
 //----------Copyright:Those valid for ANL
 //----------Modified:22/07/2014
@@ -17,7 +17,7 @@
 #ifndef __CINT__
 #include "TROOT.h"
 #include "TFrame.h"
-#include "TFile.h" 
+#include "TFile.h"
 #include "TChain.h"
 #include <Riostream.h>
 #include "TH1.h"
@@ -31,39 +31,24 @@
 #include "TH1D.h"
 #include "TH2D.h"
 #include "TStopwatch.h"
-#include "Calibration.h"
-#include "TSplineFit.h"
 #include "UVevent.h"
 #include "TemplateFit.h"
 #include "TRandom3.h"
-//added*
-/*
-#include <ctime>
-#include <cstdlib>
-#include <string>
-#include <cstdio>
-#include <cstdarg>
 
-#include "nnls.h"
-#include "TH1D.h"
-#include "TFile.h"
-#include "TCanvas.h"
-//*added
-*/
 using namespace std;
 using std::cout;
 using std::endl;
 #endif
 
-char*	treename="lappd"; 
+char*	treename="lappd";
 int		UsersEntries = 100;						// anslyze a user defined number of UVevents
 int		StartEntry = 0;							// if(argc==4) Start analysis from this entry
 int		EndEntry = 100;							// if(argc==4) End analysis at this entry
 
-//------------------Parameter file format-------------------------------------------// 
+//------------------Parameter file format-------------------------------------------//
 int				InputFileFormat = 1;
 int				Nacquisition = 10;						// Number of acquisitions
-int				NfastFrame = 1000;				
+int				NfastFrame = 1000;
 		// 999 UVevents per acquisition
 int				NChannel = 60;								// number of channels
 
@@ -138,21 +123,21 @@ void Plot(TFile *f);
 //	Start main() function
 //-----------------------------------------------------------------------------------------------------------
 int main(int argc, char **argv) {
-	
+
   cout<<"-------------------------------------------------------------------"<<endl;
   cout<<"-------------------------------------------------------------------"<<endl;
-  
-  //------------------Set input and output filenames-------------------------------------------// 
-  
+
+  //------------------Set input and output filenames-------------------------------------------//
+
   TStopwatch clock;								//runtime clock
-  clock.Start();									//clock started	  
+  clock.Start();									//clock started
   char *FileInput = "test.fff";			//default input file
   char *FileOutput = "otp.root";			//default output file
   char *FileParameters = "par.txt";
   switch(argc){
-  case 1: {cout<<"Error: File name required as the 2nd statement"<<endl; break;} 
+  case 1: {cout<<"Error: File name required as the 2nd statement"<<endl; break;}
   case 2: {FileInput = argv[1]; break;}
-  case 3: {FileInput = argv[1]; FileOutput = argv[2]; break;} 
+  case 3: {FileInput = argv[1]; FileOutput = argv[2]; break;}
   case 4: {FileInput = argv[1]; FileOutput = argv[2]; FileParameters = argv[3]; break;}
   case 5: {FileInput = argv[1]; FileOutput = argv[2]; FileParameters = argv[3]; UsersEntries = atoi(argv[4]); break;}
   case 6: {FileInput = argv[1]; FileOutput = argv[2]; FileParameters = argv[3]; StartEntry = atoi(argv[4]); EndEntry = atoi(argv[5]); break;}
@@ -160,7 +145,7 @@ int main(int argc, char **argv) {
   cout<<"Input file:"<<"\t"<< FileInput << endl;
   cout<< "Output file:"<<"\t" << FileOutput << endl;
   cout<<"Parameter file:"<<"\t"<< FileParameters << endl;
-  
+
   //--------------------------Set parameters----------------------------------------------------//
   SetParameters(FileParameters);
   cout<<"WhichChi2= "<<WhichChi2<<" Chi2Cut= "<<Chi2Cut<<endl;
@@ -170,7 +155,7 @@ int main(int argc, char **argv) {
     int k = WhichTrig.at(i);
     if(k<=NChannel) polarity.at(k) = 1;					//Set trigger polarity to 1;
     else cout<<"Error: Trigger Channel out of range "<<NChannel<<endl;
-  } 
+  }
   vector<int> selection;
   for(int i=0;i<NChannel;i++) {selection.push_back(0);}	//Set all channel-flag to 0;
   for(int i=0;i<NChanSelected;i++) {
@@ -178,10 +163,10 @@ int main(int argc, char **argv) {
     if(k<=NChannel) selection.at(k) = 1;					//Set selected channel-flag to 1;
     else cout<<"Error: Selected Channel out of range "<<NChannel<<endl;
   }
-  
-  
+
+
   //lhoods = new TGraph*[100];
-  
+
   //------------------Create a root file--------------------------------------------------------//
   TFile *f = new TFile(FileOutput, "RECREATE");				//open a file
   TTree lappd(treename, treename);				//create a tree
@@ -190,7 +175,7 @@ int main(int argc, char **argv) {
   f->mkdir("wav");
   f->mkdir("pulses");
   f->mkdir("peds");
-  
+
   if(WhichChi2>0){
     f->mkdir("lowchi");							//histograms of waveform with low chi2
     f->mkdir("highchi");							//histograms of waveform with high chi2
@@ -198,33 +183,33 @@ int main(int argc, char **argv) {
   f->mkdir("cfd");						        //constant fraction discrimination
   f->mkdir("raw");
   f->mkdir("cor");
-  
+
   //---------------------Fill a tree------------------------------------------------------------//
   ifstream isin;
   isin.open(FileInput, ios::in);					//open input .txt files
   float WavSample[NChannel][WavDimSize];
   int Nentries = Nacquisition*NfastFrame;			//number of entries
-  
+
   cout<<"Total # of UVevents: "<<Nentries<<endl;
-  
+
   int nww=0; //number of waves written to root file
   int nlc=0; //number of lowchi2 waves to write
   int nhc=0; //number of highchi2 waves to write
-  
+
   TH1D* smoothedtemplate;
   TH1D* thetemplate;
   TemplateFit* mtf = new TemplateFit("fit");
   TemplateFit* mtf2;
-  
+
   if(MakeTemplate==2){
     DoTempFit=1;
     mtf2 = new TemplateFit("fit2");
   }
-  
+
   if(DoTempFit==1){
     TFile* tf = new TFile("template.root");
     thetemplate = (TH1D*) tf->Get("thetemplate");
-    
+
     // Set Fit Range
     mtf->SetTempRange(TFRange.at(0),(TFRange.at(1)));
     mtf->SetFitRange(TFRange.at(0),(TFRange.at(1)));
@@ -232,28 +217,28 @@ int main(int argc, char **argv) {
     // currently using a version of the template, smoothed using polynomial interpolation,
     // to provide finer binning than the sampling rate of the scope (or chip)_
     mtf->AddSmoothedTemplate(thetemplate);
-    
+
     // save the smoothed template
     smoothedtemplate = mtf->ReturnGTemplate();
     f->cd();
     smoothedtemplate->Write("smoothedtemplate");
   }
-  
+
   for (int i=0;i<Nentries;i++) {
     if(argc==5) {if(i>UsersEntries) break;}
     if(argc==6) {if(i<StartEntry) continue; if(i>EndEntry) break;}
     clock.Stop();
     if(i%100 == 0) cout<<"processing "<<i<<"th UVevent..."<<"\t"<<"CpuTime = "<<clock.CpuTime()<<" s"<<endl;
-    clock.Continue();		
+    clock.Continue();
     event->Setevtno(i);						//Set UVevent number
     event->SetWavDimSize(WavDimSize);
     event->SetWavSampleRate(WavSamplingRate);
     event->Initialize();
-    
+
     //------------------------------------read scope data file---------------------------------------------
     if(InputFileFormat == 0) {
       for(int m=0;m<NChannel;m++) {
-	for(int n=0;n<WavDimSize;n++) {	
+	for(int n=0;n<WavDimSize;n++) {
 	  isin>>WavSample[m][n];
 	  WavSample[m][n] *= polarity.at(m);
 	}
@@ -278,15 +263,15 @@ int main(int argc, char **argv) {
 	isin>>meta;
       }
     }
-    //------------------------------------------------------------------------------------------------------			
+    //------------------------------------------------------------------------------------------------------
     int fnwav = 0;
-    for(int m=0;m<NChannel;m++) {				//loop over channels								
-      
+    for(int m=0;m<NChannel;m++) {				//loop over channels
+
       int nottrig=-1;
       if(NtrigChannel==0) nottrig=m;
       else if(m!=WhichTrig.at(0)) nottrig=m;
-      
-      
+
+
       if(IfSelectChannel==1) {if(selection.at(m)==0) continue;}
       int WavID = (i+1)*100+m;						//Waveform ID = evtno*100+ChannalNum
       Waveform *waveform = (Waveform*)(event->fwav->ConstructedAt(event->fnwav++));
@@ -316,41 +301,41 @@ int main(int argc, char **argv) {
 	waveform->SetFitWindow(FixMcpTwindow_min, FixMcpTwindow_max);
 	// Set Gauss Range
 	waveform->SetGaussRange(GRange.at(0),GRange.at(1));
-	
+
       }
       if(DoFFT==1) waveform->EnableFFT();
       if(IfDynamicWindow == 1) waveform->EnableDynamicWindow();
-      
-      
+
+
       //	if((waveform->npeaks)==1){ cout<<"analyze chan "<<m<<endl; }
-      
-      
+
+
       if(DoTempFit==1){
 	// mtf->SetNoise(waveform->bnoise);
 	mtf->SetNoise(3.0);
-	
-	
+
+
 	//set starting values for temp fit
 	for(int p=0; p<NChannel-NtrigChannel; p++){
-	  
-	  if(m==WhichFitChannel.at(p)){ 
+
+	  if(m==WhichFitChannel.at(p)){
 	    double startoffset = TFStartOffset.at(p)*(mrand->Rndm()-0.5);
 	    mtf->SetStartingValues(startoffset,TFStartScale.at(p));
 	    //cout<<"Starting Values: "<<m<<" "<<WhichFitChannel.at(p)<<" "<<TFStartOffset.at(p)<<" "<<TFStartScale.at(p)<<endl;
 	  }
-	}	
+	}
 	// The analysis
-	if(nottrig) {waveform->Analyze(mtf);} 
+	if(nottrig) {waveform->Analyze(mtf);}
 	else waveform->Analyze(); //analyze waveform
       }
       else{
 	waveform->Analyze();					//analyze waveform
       }
-      
-      
+
+
       //	if((waveform->npeaks)==1){ cout<<"done it "<<m<<endl; }
-      
-      
+
+
       // write the first 20 waveforms and cfds, regardless of whether there is a pulse
       if(i<50){
 	f->cd("wav");
@@ -362,27 +347,27 @@ int main(int argc, char **argv) {
 	f->cd("cfd");
 	//waveform->hcfd->Write();
       }
-      
+
       // if it's a bad baseline (see baseline2 in UVevent), we save the graph in the peds folder
       if(!waveform->goodbl) {
 	f->cd("peds");
 	waveform->hpedhist->Write();
       }
-      
-      
+
+
       // require one and only one peak
-      if((waveform->npeaks)>0){ 
-	
-	
+      if((waveform->npeaks)>0){
+
+
 	double mtt,mts;
-	
+
 	if(MakeTemplate==1){	//and waveforms to the template maker
 	  if((waveform->gsigma>TSQCut.at(0))&&(waveform->gsigma<TSQCut.at(1))){
 	    if(m==WhichTempChannel) { mtf->AddTemplate(waveform->hwav);}
 	  }
 	}
-	
-	
+
+
 	if(MakeTemplate==2){ //fit waveforms with exsting template, line waveforms up, and make new template
 	  if((waveform->gsigma<TSQCut.at(0))&&(waveform->gsigma<TSQCut.at(1))){
 	    mtt = waveform->ttime;
@@ -392,21 +377,21 @@ int main(int argc, char **argv) {
 	    delete bfwf;
 	  }
 	}
-	
+
 	if(nottrig>-1){
-	  nww++; 
-	  
+	  nww++;
+
 	  if(nww<100){
 	    f->cd("pulses");		    //go to folder "/pulses"
 	    waveform->hwav->Write();	    //write histograms for waveforms
-	    
+
 	    if(DoTempFit){
-	      
+
 	      // if we are doing the template fit, save the template at it's best fit value
 	      mtt = waveform->ttime;
 	      mts = waveform->tscale;
 	      //cout<<"hey "<<i<<" "<<m<<" "<<mtt<<" "<<mts<<endl;
-	      
+
 	      //TH1D* bftemp1 = mtf->ShiftAndScale(thetemplate,mtt,mts);
 	      TH1D* bftemp1 = mtf->ShiftAndScale(smoothedtemplate,mtt,mts);
 	      TString tname;
@@ -415,18 +400,18 @@ int main(int argc, char **argv) {
 	      tname+="_";
 	      tname+=m;
 	      bftemp1->Write(tname);
-	      
+
 	    }
 	  }
-	  
+
 	  // store the waveforms into different folders, based on the quality of their gaussian/template likelihoods
 	  if(WhichChi2>0){
-	    
+
 	    float _chi2=0;
 	    if(WhichChi2==2) _chi2=(waveform->gchi2);
 	    else _chi2=(waveform->tchi2);
-	    
-	    
+
+
 	    if( (_chi2<Chi2Cut) && (nlc<100) ){
 	      nlc++;
 	      f->cd("lowchi");
@@ -440,40 +425,40 @@ int main(int argc, char **argv) {
 	  }
 	}
       }
-      
+
     }
     if(DoAnalysis) SetVarsForAnalysis(event);
-    
+
     cout<<"beforefill"<<endl;
-    lappd.Fill();								//Fill tree	
+    lappd.Fill();								//Fill tree
     cout<<"afterfill"<<endl;
     event->Clear();	 							//Clear the event
-    
+
   }
-  
+
   f->cd();									//home folder
-  if(DoAnalysis) Analyze(f);									
+  if(DoAnalysis) Analyze(f);
   lappd.Write();									//write tree
   isin.close();
-  
+
   if(MakeTemplate==1){								//save the newly made template
     thetemplate = mtf->ReturnTemplate(true);
     TFile *tf = new TFile("template.root","RECREATE");
     thetemplate->Write("thetemplate");
     tf->Close();
   }
-  
+
   if(MakeTemplate==2){								//save the newly made template
     thetemplate = mtf2->ReturnTemplate(true);
     TFile *tf = new TFile("template.root","RECREATE");
     thetemplate->Write("thetemplate");
     tf->Close();
   }
-  
-  
+
+
   cout<<"-------------------------------------------------------------------"<<endl;
   cout<<"-------------------------------------------------------------------"<<endl;
-  
+
   f->Close();
   //	delete f; f=0;
   return 0;
@@ -571,5 +556,5 @@ void Analyze(TFile *f) {
 void Plot(TFile *f) {
 	gStyle->SetOptFit(111);
 	gStyle->SetPalette(1);
-	
+
 }

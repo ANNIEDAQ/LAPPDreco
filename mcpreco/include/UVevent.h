@@ -1,8 +1,8 @@
-//----------APS Analysis 
+//----------APS Analysis
 //----------Author's Name:Jingbo WANG
 //----------Copyright:Those valid for ANL
 //----------Modified:22/07/2014
-#ifndef UVEVENT 
+#ifndef UVEVENT
 #define UVEVENT
 
 #include <TObject.h>
@@ -12,23 +12,20 @@
 #include <TH1F.h>
 #include "TVirtualFFT.h"
 #include "TClonesArray.h"
-#include "TSplineFit.h"
-#include "Calibration.h"
 #include <vector>
-#include "TemplateFit.h"
 #include <TSpectrum.h>
 
-class UVevent: public TObject { 
+class UVevent: public TObject {
 
-private: 
+private:
 	float			WavSampleRate;
 	int				WavDimSize;
 	float			WavDeltat;
-	
-public: 
 
-  UVevent(); 
-  virtual ~UVevent(); 
+public:
+
+  UVevent();
+  virtual ~UVevent();
   void          Clear(Option_t *option ="");
 
   int			evtno;
@@ -37,7 +34,7 @@ public:
 	int			ClusterSize;			//Number of fired strips
 
 	static TClonesArray *fgWaveforms;
- 
+
 	int			cutflag;		//
 	vector<float>	t;
 	vector<float>	fz;
@@ -58,14 +55,14 @@ public:
 	TClonesArray	*GetWaveforms()					const { return fwav; }
 	int				GetWavNumber()					const { return fnwav;}
 	void			UVeventAnalysis();
-  
-  ClassDef(UVevent,1) 
 
-}; 
+  ClassDef(UVevent,1)
+
+};
 
 class Waveform: public TObject {
 private:
-		
+
 		float		Calculate_baseline(float* fvol); //
 		float		Calculate_baseline2(float* fvol, int nottrig);
 		float		Calculate_baseline3();
@@ -89,7 +86,7 @@ private:
         int			Calculate_Peaks();
         int			Calculate_Peaks_nnls();
 	float FWPM(float frac);
-public: 
+public:
 		int			DoFFT;
 		int			Samplerate;		//sampling rate
 		float		Deltat;			//time per sample
@@ -105,7 +102,7 @@ public:
 		float           FWHM;    //full width at half max
 		float           FW20pM;   //full width at 20 percent max
 		double		time;	//leading edge
-        double      risingtime; 
+        double      risingtime;
         int			MinimumTot;
 	float       TotThreshold;
 		int			npeaks;
@@ -117,7 +114,7 @@ public:
 		double        gpeak;
 		double        gtime;
 		double        grisetime;
-		double        gchi2; 
+		double        gchi2;
 		double        gdegfree;
 		double        goffset;     //Gaussian parameters
 
@@ -166,7 +163,7 @@ public:
 		char		CFDSplineName[100];
 		char		CFDSplineTitle[100];
 		float		TimeStamp;	//Time stamp of this waveform
-		
+
 		vector<float>	vol;
 		vector<float>   vol_raw;
 		vector<float>   bg;
@@ -203,10 +200,10 @@ public:
 
 		float		CutoffFrequency;
 		double		AmpThreshold;
-		double		Fraction_CFD;	//fraction of Attenuation 
+		double		Fraction_CFD;	//fraction of Attenuation
 		int			Delay_CFD;		//
 		char*		AnalysisOption;
-		
+
 		Waveform();
 		virtual ~Waveform();
 		void        Clear(Option_t *option="");
@@ -225,7 +222,7 @@ public:
 		float		SetCutoffFrequency(float f) {CutoffFrequency = f; return CutoffFrequency;};
 		int			SetMinimumTot(int fdt)		{MinimumTot = fdt; return MinimumTot;}
 		float			SetTotThreshold(float thr)		{TotThreshold = thr; return TotThreshold;}
-		
+
 		void		Initialize(float* par, int nottrig); //call it with Set(&par[0])
 		void                    Setup_nnls();
 		void            Calculate_Variables_nnls(int Npulses);
@@ -238,7 +235,7 @@ public:
 		int			Getevtno()				const { return evtno; }
 		float		GetTimeStamp()			const { return TimeStamp;}
 		int			GetDimSize()			const { return DimSize; }
-		float		Getbaseline()			const { return baseline; } 
+		float		Getbaseline()			const { return baseline; }
 		float		Getqfast()				const { return qfast; }
 		float		Getqtot()				const { return qtot;}
 		float		Getamp()				const { return amp; }
@@ -252,11 +249,11 @@ public:
 		float interceptR;
 		float timeL;
 		float timeR;
-		
+
 		vector<int> HighBound;
 		vector<int> LowBound;
-		
+
 };
 
 
-#endif  
+#endif

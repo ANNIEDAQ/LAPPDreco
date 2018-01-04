@@ -7,7 +7,7 @@
 #include "TDirectory.h"
 #include "TProcessID.h"
 #include "TMath.h"
-#include "UVevent.h" 
+#include "UVevent.h"
 #include "TSpectrum.h"
 
 #include <ctime>
@@ -37,12 +37,12 @@ ClassImp(Waveform)
 
 TClonesArray *UVevent::fgWaveforms = 0;
 
-// ------------------------------------------------------ 
-// UVevent 
 // ------------------------------------------------------
-UVevent::UVevent() 
-{ 
-  // Create an UVevent object.
+// UVevent
+// ------------------------------------------------------
+UVevent::UVevent()
+{
+  // Create a UVevent object.
    // When the constructor is invoked for the first time, the class static
    // variable fgTracks is 0 and the TClonesArray fgTracks is created.
 	if (!fgWaveforms) fgWaveforms = new TClonesArray("Waveform", 1000);
@@ -55,7 +55,7 @@ UVevent::UVevent()
 
 UVevent::~UVevent() {
 	Clear();
-}  
+}
 
 void UVevent::Initialize() {
 	for(int i=0;i<WavDimSize;i++) {
@@ -74,14 +74,14 @@ void UVevent::Clear(Option_t * /*option*/)
    fnwav = 0;
    t.clear();
    fz.clear();
-//	for(int i=0;i<60;i++) {wav[i].Clear();}  
+//	for(int i=0;i<60;i++) {wav[i].Clear();}
 
 //   delete fwav;
-   
+
 }
 
-// ------------------------------------------------------ 
-// Waveform 
+// ------------------------------------------------------
+// Waveform
 // ------------------------------------------------------
 Waveform::Waveform()
 {
@@ -115,7 +115,7 @@ Waveform::Waveform()
 	MinimumTot = 100;
 	DoFFT = 0;
 	IfDynamicWindow = 0;
-	
+
 	for(int i=0; i<10; i++){
 	  vtime[i]=0;
 	  vamp[i]=0;
@@ -139,7 +139,7 @@ void Waveform::Clear(Option_t * /*option*/)
 {
    // Note that we intend on using TClonesArray::ConstructedAt, so we do not
    // need to delete any of the arrays.
-   TObject::Clear(); 
+   TObject::Clear();
 	delete hwav; hwav = 0;
 	delete hbg; hbg = 0;
 	delete hwav_raw; hwav_raw = 0;
@@ -160,7 +160,7 @@ void Waveform::Clear(Option_t * /*option*/)
 void Waveform::Initialize(float* fvol, int nottrig) //call it with Set(&fvol[0])
 {
 //Set values for the Waveform members
-  trigno = nottrig;	
+  trigno = nottrig;
   cout<<"nottrig "<<nottrig<<endl;
 
   steps = 5; //how finely the template is binned
@@ -181,7 +181,7 @@ void Waveform::Initialize(float* fvol, int nottrig) //call it with Set(&fvol[0])
   hbg = new TH1D(BgName,BgName, DimSize, 0, DimSize*Deltat);
   hcfd = new TH1D(CFDName, CFDName, DimSize, 0, DimSize*Deltat);
   hpedhist = new TH1D(PEDName, PEDName, 100,-5.0,5.0);
-  
+
   for(int i=0;i<DimSize;i++) {
     vol_raw.push_back(*(fvol+i));
     hwav_raw->SetBinContent(i+1, vol_raw[i]);
@@ -232,7 +232,7 @@ void Waveform::Initialize(float* fvol, int nottrig) //call it with Set(&fvol[0])
       if(nottrig==1) hwav_raw->Fit("sinit1","q","",32000,50000);
       if(nottrig==2) hwav_raw->Fit("sinit1","q","",32000,50000);
     }
- 
+
   bool clipit=true;
   //double cliplow=56000;
   //double cliphi=65000;
@@ -282,7 +282,7 @@ void Waveform::Setup_nnls() {
   m = (DimSize+60)*steps;
   n = (DimSize+60)*steps;
   double* matrixA2 = new double[m*n];
-  
+
   cout<<"here1"<<endl;
   //fill matrixA (array version of A)
   TFile* tt = new TFile("pulsecharacteristics.root");
@@ -295,11 +295,11 @@ void Waveform::Setup_nnls() {
 	{
 	  if(bincount>0 && bincount<=30*steps && j>=i && j<=(i+30*steps))
 	    {
-	      if(tempp->GetBinContent((100/steps)*(bincount))<0) 
+	      if(tempp->GetBinContent((100/steps)*(bincount))<0)
 		{
 		  matrixA2[m*i+j] = tempp->GetBinContent((100/steps)*(bincount));
 		}
-	      else 
+	      else
 		{
 		  matrixA2[m*i+j] = 0;
 		}
@@ -319,7 +319,7 @@ void Waveform::Setup_nnls() {
   //fill vv (array version of b)
   for(int i=0; i<m; i++)
     {
-      if(i<30*steps || i>(m-30*steps)) 
+      if(i<30*steps || i>(m-30*steps))
 	{
 	  vv[i]=0;
 	}
@@ -395,24 +395,24 @@ float Waveform::Calculate_baseline2(float* fvol, int nottrig) {
   double acc = 0;
   TH1D* hnoise = new TH1D("hnoise","hnoise",100,-5.,5.);
   TH1D* hbline = new TH1D("hbline","hbline",100,-5.,5.);
-  
+
   bool istrigchan=false;
-    
+
   for(int i=0;i<1000;i++) {
     if(i<200) hnoise->Fill(*(fvol+i));
     hbline->Fill(*(fvol+i));
     if( fabs(*(fvol+i)) > 100. ) istrigchan=true;
-    
+
     if( (i>=30) && (i<190) ) {
       //		SetVol(i, *(fvol+i));
       acc += *(fvol+i);
     }
   }
-  
+
   double bgmean=0;
   double meanped=0;
   baseline=0;
-  
+
   TF1* mgf = new TF1("mgf","gaus");
   if(nottrig>=0){
     hbline->Fit(mgf,"q");
@@ -423,12 +423,12 @@ float Waveform::Calculate_baseline2(float* fvol, int nottrig) {
     bnoise = hnoise->GetRMS();
     baseline = acc/160.;
   }
-  
-  
+
+
   for(int i=0;i<1000;i++) {       //subtracting the baseline
     hpedhist->Fill(*(fvol+i));
   }
-  
+
   delete mgf;
   delete hnoise;
   delete hbline;
@@ -443,7 +443,7 @@ float Waveform::Calculate_baseline2(float* fvol, int nottrig) {
 float Waveform::Calculate_baseline3() {
 
   TF1* sinebline = new TF1("sinebline","[0]+[1]*cos([2]*x+[3])",0.,100000.);
-  
+
   sinebline->SetParameter(0,0.0);
   sinebline->SetParameter(1,1.0);
   sinebline->SetParameter(2,0.00055);
@@ -468,9 +468,9 @@ int Waveform::Calculate_Peaks() {
 		if(pvol>threshold) {length++;}
 		else {
 			if(length<MinimumTotBin) {length=0;}
-			else {npeaks++; length = 0;}	
+			else {npeaks++; length = 0;}
 		}
-		
+
 	}
 	return npeaks;
 }
@@ -484,7 +484,7 @@ float Waveform::FWPM(float frac) {
   bool rside=false;
   float fh = frac*amp;
   int mbin = hwav->GetMinimumBin();
-  
+
   //  cout<<"OK, I'm here..."<<mbin<<" "<<amp<<" "<<fh<<endl;
 
   int i=1;
@@ -494,7 +494,7 @@ float Waveform::FWPM(float frac) {
       if(i>200) break;
     //    cout<<i<<endl;
     i++;
-  }       
+  }
 
   float thewidth = ((float)i)*Deltat;
 
@@ -504,7 +504,7 @@ float Waveform::FWPM(float frac) {
 }
 
 
-float Waveform::Calculate_amp() { 
+float Waveform::Calculate_amp() {
 //	amp = TMath::Abs(fsplinewav->V(hwav->GetMaximumBin()));
 	amp = TMath::Abs(hwav->GetMinimum());
 	return amp;
@@ -556,13 +556,13 @@ float Waveform::Waveform_Filter2(float CutoffFrequency, int T, float finput) {
 
 
 float Waveform::Filter_KURE(int T, float finput){
-  
+
   double f1 = 1.0/(1+TMath::Power(finput/500.0e6, 2*T));
-  double f2 = 1.0-(1.0/(1+TMath::Power(finput/10.0e6, 2*T))); 
+  double f2 = 1.0-(1.0/(1+TMath::Power(finput/10.0e6, 2*T)));
 
   double f3 = 1.0/(1+TMath::Power(finput/90e6, 2*T)); //originially 87.0
   double f4 = 1.0-(1.0/(1+TMath::Power(finput/80e6, 2*T))); //originally 90.0
-  
+
   //return (f1+f2-1);
   return (f1+f2-f3-f4);
 }
@@ -600,7 +600,7 @@ void Waveform::Waveform_FFT() {
 	  double f = Waveform_Filter2(CutoffFrequency, 4, i*1.0e10/DimSize);
 	  // Filter out 88.5 KURE Ames Alternative
 	  double f2 = Filter_KURE(200, i*1.0e10/DimSize);
-	  
+
 	  /*
 	  if( ((i*1.0e10/DimSize)>80.0e6) && ((i*1.0e10/DimSize)<95.0e6) ){
 	    f=0.0;
@@ -611,9 +611,9 @@ void Waveform::Waveform_FFT() {
 	  re_full[i] = re_full[i]*f2;
 	  im_full[i] = im_full[i]*f2;
 
-	  freqq->SetBinContent(i+1,re_full[i]);                   
+	  freqq->SetBinContent(i+1,re_full[i]);
 	}
-	
+
 	//Now let's make a backward transform:
 	TVirtualFFT *fft_back = TVirtualFFT::FFT(1, &DimSize, "C2R M K");
 	fft_back->SetPointsComplex(re_full,im_full);
@@ -654,7 +654,7 @@ void Waveform::Waveform_FFT() {
 	im_full=0;
 	fft=0;
 	fft_back=0;
-	
+
 }
 
 
@@ -682,11 +682,11 @@ void Waveform::Waveform_Fit() {
 	if(amp <= AmpThreshold || npeaks==0) return;
 	else {
 		if(IfDynamicWindow == 1) Calculate_fitrange();
-		fsplinewav = new TSplineFit(SplineName, SplineTitle, 20, PointsPerSpline, hwav, FitWindow_min, FitWindow_max); 
+		fsplinewav = new TSplineFit(SplineName, SplineTitle, 20, PointsPerSpline, hwav, FitWindow_min, FitWindow_max);
 		fsplinewav->UpdateFile(true); //SplineFit database:  Skip this line for fast analysis
 		fsplinewav->ReduceMemory();	//Store only X and Y. Apply this line for fast analysis
 	}
-	
+
 }
 
 float	Waveform::CFD_Discriminator1() { //Appoximate CFD
@@ -718,7 +718,7 @@ float	Waveform::CFD_Discriminator1() { //Appoximate CFD
 		time = xlow;
 	}
 	return time;
-}	
+}
 
 
 float	Waveform::CFD_Discriminator2() {	//Exact CFD
@@ -739,7 +739,7 @@ float	Waveform::CFD_Discriminator2() {	//Exact CFD
 		fsplinecfd = new TSplineFit(CFDSplineName,CFDSplineTitle,50,PointsPerSpline, hcfd,FitWindow_min, FitWindow_max);
 //		fsplinecfd->UpdateFile(true); //SplineFit database:  Skip this line for fast analysis
 		fsplinecfd->ReduceMemory();
-	
+
 //solve equation
 		double eps = 1e-4;
 		double xhigh = hcfd->GetMinimumBin()*Deltat;
@@ -747,7 +747,7 @@ float	Waveform::CFD_Discriminator2() {	//Exact CFD
 		double xlow = FitWindow_min;
 //		cout<<xlow<<"\t"<<xhigh<<endl;
 		double xmid = (xlow+xhigh)/2;
-	
+
 		if(fsplinecfd->V(xmid)==0) time = xmid;
 
 		while ((xhigh-xlow) >= eps) {
@@ -796,7 +796,7 @@ float Waveform::GaussFit() {
 Float_t	Waveform::DoubleGaussFit(bool floatbaseline) {
 
 	gmean=0;      gpeak=0;      gsigma=0;      gtime=0;    gchi2=0;
-	
+
 	ggmean=0;     ggpeak=0;     ggsigma=0;     ggmean2=0.;
 	ggpeak2=0;    ggsigma2=0;   ggtime=0;      ggtime2=0.;
 	ggoffset=0;   ggchi2=0;
@@ -809,35 +809,35 @@ Float_t	Waveform::DoubleGaussFit(bool floatbaseline) {
 		int maxbin = hwav->GetMinimumBin();
 		double lowrange = hwav->GetBinCenter(maxbin-4);
 		double hirange = hwav->GetBinCenter(maxbin+4);
-		
+
 		if( (hwav->GetBinCenter(maxbin)<FitWindow_max)&&(hwav->GetBinCenter(maxbin)>FitWindow_min) ){
 		  TF1* mgf = new TF1("mgf","gaus",lowrange,hirange);
 		  mgf->SetParameter(0, -amp);
 		  mgf->SetParameter(1, Deltat*hwav->GetMinimumBin());
 		  mgf->SetParameter(2, 400);
-		  
+
 		  hwav->Fit("mgf","QR");
-		  
+
 		  double peaktime = mgf->GetParameter(1);
-		  
+
 		  double flowrange = peaktime - GaussRange_min;
 		  double fhirange = peaktime + GaussRange_max;
-		  
+
 		  if(peaktime<FitWindow_max&&peaktime>FitWindow_min){
-		    
+
 		    TF1* mgf2;
 		    if(!floatbaseline) mgf2 = new TF1("mgf2","gaus",flowrange,fhirange);
 		    else mgf2 = new TF1("mgf2","[0]*exp(-0.5*((x-[1])/[2])^2)+[3]", flowrange, fhirange);
-		    
+
 		    double nparam = 4;
 		    if(!floatbaseline) nparam=3;
-		    		    
+
 		    mgf2->SetParameter(0, -amp);
 		    mgf2->SetParameter(1, Deltat*hwav->GetMinimumBin());
 		    mgf2->SetParameter(2, 400);
 		    if(floatbaseline) mgf2->SetParameter(3,0);
-		    
-		    hwav->Fit("mgf2","QR");	    
+
+		    hwav->Fit("mgf2","QR");
 		    double mgpeak = mgf2->GetParameter(0);
 		    double mgmean = mgf2->GetParameter(1);
 		    double mgsigma = mgf2->GetParameter(2);
@@ -845,7 +845,7 @@ Float_t	Waveform::DoubleGaussFit(bool floatbaseline) {
 		    if(floatbaseline) mgoffset = mgf2->GetParameter(3);
 		    else mgoffset=0;
 		    double mgchi2= mgf2->GetChisquare();
-		    
+
      		    gmean=mgmean;
 		    gpeak=mgpeak;
 		    gsigma=mgsigma;
@@ -857,10 +857,10 @@ Float_t	Waveform::DoubleGaussFit(bool floatbaseline) {
 
 		    delete mgf;
 		    delete mgf2;
-		  } 
+		  }
 		}
 	}
-	
+
 	return time;
 }
 
@@ -868,7 +868,7 @@ Float_t	Waveform::DoubleGaussFit(bool floatbaseline) {
 // Not really used - a gaussian fit to the peak, followed by a double-gaussian fit over the whole specified range
 
 Float_t	Waveform::DoubleDoubleGaussFit() {
-	
+
 	ggmean=0;     ggpeak=0;     ggsigma=0;     ggmean2=0.;
 	ggpeak2=0;    ggsigma2=0;   ggtime=0;      ggtime2=0.;
 	ggoffset=0;   ggchi2=0;
@@ -891,12 +891,12 @@ Float_t	Waveform::DoubleDoubleGaussFit() {
 	  	  mgf->SetParameter(2, 400);
 
 		  hwav->Fit("mgf","QR");
-	  
+
 		  double peaktime = mgf->GetParameter(1);
-	  
+
 		  double flowrange = peaktime-2650.;
 		  double fhirange = peaktime+400.;
-	  
+
 		  if(peaktime<FitWindow_max&&peaktime>FitWindow_min){
 
 		    TF1* mgf2 = new TF1("mgf2","[0]*exp(-0.5*((x-[1])/[2])^2)+[3]*exp(-0.5*((x-[4])/[5])^2)+[6]", flowrange, fhirange);
@@ -909,7 +909,7 @@ Float_t	Waveform::DoubleDoubleGaussFit() {
 	   	    mgf2->SetParameter(5, 400);
 	  	    mgf2->SetParameter(6,0);
 
-  		    hwav->Fit("mgf2","QR");	    
+  		    hwav->Fit("mgf2","QR");
 	    	    double mgpeak = mgf2->GetParameter(0);
 	     	    double mgmean = mgf2->GetParameter(1);
 	     	    double mgsigma = mgf2->GetParameter(2);
@@ -920,7 +920,7 @@ Float_t	Waveform::DoubleDoubleGaussFit() {
 	   	    double mgoffset = mgf2->GetParameter(6);
 	   	    double mgchi2= mgf2->GetChisquare();
 	   	    double nparam = 7;
-  
+
 	   	    ggmean=mgmean;
 	   	    ggpeak=mgpeak;
 	  	    ggsigma=mgsigma;
@@ -937,7 +937,7 @@ Float_t	Waveform::DoubleDoubleGaussFit() {
 		    delete mgf2;
 	 	 } // if seed fit in final time window
 	  //	Cout<<" "<<Mgmean<<Endl=gtime;
-		} // if raw peak is in time window 	 
+		} // if raw peak is in time window
 	} //else (more than zero pulse candidates
 	return time;
 }
@@ -954,7 +954,7 @@ Float_t Waveform::DoTemplateFit(TemplateFit* mtf){
 	else {
 		if(IfDynamicWindow == 1) Calculate_fitrange();
 
-		
+
 		Double_t amp = TMath::Abs(hwav->GetMinimum());
 		int maxbin = hwav->GetMinimumBin();
 
@@ -963,31 +963,31 @@ Float_t Waveform::DoTemplateFit(TemplateFit* mtf){
 		/*
 		double lowrange = hwav->GetBinCenter(maxbin-6);
 		double hirange = hwav->GetBinCenter(maxbin+6);
-		
+
 		TF1* mgf = new TF1("mgf","gaus",lowrange,hirange);
 		mgf->SetParameter(0, -amp);
 		mgf->SetParameter(1, Deltat*hwav->GetMinimumBin());
 		mgf->SetParameter(2, 400);
-		
+
 		hwav->Fit("mgf","QR");
-		
+
 		double peaktime = mgf->GetParameter(1);
-		
+
 		double flowrange = peaktime-1100.;
 		double fhirange = peaktime+250.;
 
 		mtf->SetTempRange(flowrange,fhirange);
 		mtf->SetFitRange(flowrange,fhirange);
  	        */
-		
+
 		/////////////////////////////////////////////////////////
-		
+
 		if( (hwav->GetBinCenter(maxbin)<FitWindow_max)&&(hwav->GetBinCenter(maxbin)>FitWindow_min) ){
 
 			TH1D* gthetemplate = mtf->ReturnTemplate(true);
 			mtf->FitWithTemplate(hwav,ttime,tscale,tchi2);
 			tamp = tscale*(fabs(gthetemplate->GetMinimum()));
-			
+
 			double binwidth;
 			binwidth = gthetemplate->GetBinWidth(1);
 
@@ -1054,7 +1054,7 @@ int Waveform::Calculate_Peaks_nnls()
 	*/
 	delete NEWhwav;
 	length = 0;
-      }	
+      }
     }
   }
 
@@ -1067,9 +1067,9 @@ int Waveform::Calculate_Peaks_nnls()
 }
 
 void Waveform::Calculate_Variables_nnls(int Npulses) {
-  
+
   int pulses;
-  if(Npulses<=10) 
+  if(Npulses<=10)
     {
       pulses=Npulses;
     }
@@ -1095,7 +1095,7 @@ void Waveform::Calculate_Variables_nnls(int Npulses) {
 	    {
 	      if(LowBound[p]<i && HighBound[p]>i)
 		{
-		  if(REBINNEDhwav->GetBinContent(i+1)!=0) 
+		  if(REBINNEDhwav->GetBinContent(i+1)!=0)
 		    {
 		      vchi2[p]+=TMath::Abs(((nnlsoutput->GetBinContent(i+1)-(REBINNEDhwav->GetBinContent(i+1)))*(nnlsoutput->GetBinContent(i+1)-(REBINNEDhwav->GetBinContent(i+1)))/(REBINNEDhwav->GetBinContent(i+1))));
 		    }
@@ -1103,8 +1103,8 @@ void Waveform::Calculate_Variables_nnls(int Npulses) {
 	    }
 	  cout<<"chi2 for pulse "<<p+1<<": "<<vchi2[p]<<endl;
 	}
-      
-      
+
+
       //CALCULATING TIMING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       //done in calculate_peaks_nnls
 
@@ -1128,7 +1128,7 @@ void Waveform::Calculate_Variables_nnls(int Npulses) {
 	  vamp[p]=TMath::Abs(min);
 	  cout<<vamp[p]<<endl;
 	}
-      
+
       //CALCULATING FWPM~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       if(trigno>=0)
 	{
@@ -1138,40 +1138,40 @@ void Waveform::Calculate_Variables_nnls(int Npulses) {
 	  bool lside=false;
 	  bool rside=false;
 	  float fh = frac*vamp[p];
-	  
+
 	  int i=0;
 	  int j=0;
-	  
+
 	  while(!lside)
 	    {
 	      i++;
 	      if( fabs(nnlsoutput->GetBinContent(MinBin-i)) < fh ) lside=true;
 	    }
-	  
+
 	  while(!rside)
-	    { 
+	    {
 	      j++;
 	      if( fabs(nnlsoutput->GetBinContent(MinBin+j)) < fh ) rside=true;
-	    }       
-	  
+	    }
+
 	  float slopeL = (nnlsoutput->GetBinContent(MinBin-i+1)-nnlsoutput->GetBinContent(MinBin-i))/((MinBin-i+1)*Deltat/steps-(MinBin-i)*Deltat/steps);
 	  float slopeR = (nnlsoutput->GetBinContent(MinBin+j)-nnlsoutput->GetBinContent(MinBin+j-1))/((MinBin+j)*Deltat/steps-(MinBin+j-1)*Deltat/steps);
-	  
+
 	  float interceptL = nnlsoutput->GetBinContent(MinBin-i)-slopeL*(MinBin-i)*Deltat/steps;
 	  float interceptR = nnlsoutput->GetBinContent(MinBin+j)-slopeR*(MinBin+j)*Deltat/steps;
-	  
+
 	  float timeL = (fh-interceptL)/slopeL;
 	  float timeR = (fh-interceptR)/slopeR;
-	  
-	  float thewidth = timeR-timeL;     
-	  
+
+	  float thewidth = timeR-timeL;
+
 	  vFWPM[p]=thewidth;
 	  cout<<"fwpm for pulse "<<p+1<<": "<<vFWPM[p]<<endl;
-	  
+
 	}
 
-      
-      
+
+
     }
   delete REBINNEDhwav;
 }
@@ -1181,7 +1181,7 @@ void Waveform::Analyze() {
 	DisWindow_max = DimSize*Deltat;
 	hwav->GetXaxis()->SetRange(DisWindow_min/Deltat,DisWindow_max/Deltat);
 	hcfd->GetXaxis()->SetRange(DisWindow_min/Deltat,DisWindow_max/Deltat);
-	
+
 	bool nnls = true;
 	if(nnls)
 	  {
@@ -1210,14 +1210,14 @@ void Waveform::Analyze() {
 
 }
 
-// Overloaded version of the Analyze function that includes the template fit 
+// Overloaded version of the Analyze function that includes the template fit
 
 void Waveform::Analyze(TemplateFit* mtf) {
 	DisWindow_min = 0;
 	DisWindow_max = DimSize*Deltat;
 	hwav->GetXaxis()->SetRange(DisWindow_min/Deltat,DisWindow_max/Deltat);
 	hcfd->GetXaxis()->SetRange(DisWindow_min/Deltat,DisWindow_max/Deltat);
-	
+
 	if(DoFFT==1)	Waveform_FFT();
 	Calculate_Peaks();
 	Calculate_amp();
@@ -1228,9 +1228,7 @@ void Waveform::Analyze(TemplateFit* mtf) {
 //	CFD_Discriminator1();	//approximate CFD
 	CFD_Discriminator2();	 // exact CFD
 	DoubleGaussFit(0);
-	DoTemplateFit(mtf);	
+	DoTemplateFit(mtf);
 //      DoubleDoubleGaussFit();
 
 }
-
-
