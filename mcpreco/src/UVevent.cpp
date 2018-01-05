@@ -2,13 +2,14 @@
 //----------Author's Name:Jingbo WANG
 //----------Copyright:Those valid for ANL
 //----------Modified:22/07/2014
-#include "RVersion.h"
-#include "TRandom.h"
-#include "TDirectory.h"
-#include "TProcessID.h"
-#include "TMath.h"
+#include <RVersion.h>
+#include <TRandom.h>
+#include <TDirectory.h>
+#include <TProcessID.h>
+#include <TMath.h>
 #include "UVevent.h"
-#include "TSpectrum.h"
+#include "Waveform.h"
+#include <TSpectrum.h>
 
 #include <ctime>
 #include <cstdlib>
@@ -16,10 +17,9 @@
 #include <cstdio>
 #include <cstdarg>
 
-#include "nnls.h"
-#include "TH1D.h"
-#include "TFile.h"
-#include "TCanvas.h"
+#include <TH1D.h>
+#include <TFile.h>
+#include <TCanvas.h>
 
 #include <iostream>
 
@@ -440,7 +440,7 @@ float Waveform::Calculate_baseline2(float* fvol, int nottrig) {
 //============== CALCULATING THE BASELINE: THIRD METHOD ==============//
 // fit with sine
 
-float Waveform::Calculate_baseline3() {
+void Waveform::Calculate_baseline3() {
 
   TF1* sinebline = new TF1("sinebline","[0]+[1]*cos([2]*x+[3])",0.,100000.);
 

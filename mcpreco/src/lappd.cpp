@@ -11,14 +11,13 @@
 #include <stdlib.h>
 #include <vector>
 #include <sys/types.h>
-#include "math.h"
-#include <string.h>
+#include <math.h>
 #include <string>
 #ifndef __CINT__
-#include "TROOT.h"
-#include "TFrame.h"
-#include "TFile.h"
-#include "TChain.h"
+#include <TROOT.h>
+#include <TFrame.h>
+#include <TFile.h>
+#include <TChain.h>
 #include <Riostream.h>
 #include "TH1.h"
 #include "TH2.h"
@@ -32,7 +31,6 @@
 #include "TH2D.h"
 #include "TStopwatch.h"
 #include "UVevent.h"
-#include "TemplateFit.h"
 #include "TRandom3.h"
 
 using namespace std;
@@ -40,7 +38,7 @@ using std::cout;
 using std::endl;
 #endif
 
-char*	treename="lappd";
+const char *treename="lappd";
 int		UsersEntries = 100;						// anslyze a user defined number of UVevents
 int		StartEntry = 0;							// if(argc==4) Start analysis from this entry
 int		EndEntry = 100;							// if(argc==4) End analysis at this entry
@@ -131,9 +129,9 @@ int main(int argc, char **argv) {
 
   TStopwatch clock;								//runtime clock
   clock.Start();									//clock started
-  char *FileInput = "test.fff";			//default input file
-  char *FileOutput = "otp.root";			//default output file
-  char *FileParameters = "par.txt";
+  const char *FileInput = "test.fff";			//default input file
+  const char *FileOutput = "otp.root";			//default output file
+  const char *FileParameters = "par.txt";
   switch(argc){
   case 1: {cout<<"Error: File name required as the 2nd statement"<<endl; break;}
   case 2: {FileInput = argv[1]; break;}
