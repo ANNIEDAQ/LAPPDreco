@@ -3,10 +3,9 @@
 #include "TDirectory.h"
 #include "TProcessID.h"
 #include "TMath.h"
-#include "TemplateFit.h" 
+#include "TemplateFit.h"
 #include "TMinuit.h"
 #include "TGraph.h"
-#include "TSplineFit.h"
 
 using namespace std;
 
@@ -15,7 +14,7 @@ ClassImp(TemplateFit)
 
 //TemplateFit fgTemplateFit("extern");
 
-TH1D* ghist; 
+TH1D* ghist;
 TH1D* gtemplate;
 bool gusefitrange;
 bool gusetemprange;
@@ -35,27 +34,27 @@ TSplineFit *tshist;
 extern TH1D* XShiftAndScale(TH1D* ohist, double mshift, double mscale){
 
   TH1D* rhist = (TH1D*)(ohist->Clone());
-  Double_t origNORM = rhist->Integral();
+  // Double_t origNORM = rhist->Integral();
 
   rhist->Reset();
 
   for(int i=1; i<((ohist->GetNbinsX())+1); i++){
-    
+
     double bcent = ohist->GetBinCenter(i);
     double bcont = ohist->Interpolate(bcent-mshift);
- 
-//    cout<<bcont<<" "<<mscale<<" "<<(bcent-mshift)<<" "<<gtlrange<<" "<<gthrange<<endl;	
-    rhist->SetBinContent(i,bcont*mscale);	
 
-    
+//    cout<<bcont<<" "<<mscale<<" "<<(bcent-mshift)<<" "<<gtlrange<<" "<<gthrange<<endl;
+    rhist->SetBinContent(i,bcont*mscale);
+
+
     if( gusetemprange && (((bcent-mshift)<gtlrange) || ((bcent-mshift)>gthrange)) ){
         rhist->SetBinContent(i,0);
      }
     }
 
-  Double_t newNORM = rhist->Integral();
+  // Double_t newNORM = rhist->Integral();
 
-  //  cout<<"NORMS "<<origNORM<<" "<<newNORM<<endl;  
+  //  cout<<"NORMS "<<origNORM<<" "<<newNORM<<endl;
   //  if(newNORM>0) rhist->Scale(origNORM/newNORM);
 
   return rhist;
@@ -65,18 +64,18 @@ extern TH1D* XShiftAndScale(TH1D* ohist, double mshift, double mscale){
 extern TH1D* XShiftAndScale(TH1D* ohist, double mshift, double mscale, bool dorange){
 
   TH1D* rhist = (TH1D*)(ohist->Clone());
-  Double_t origNORM = rhist->Integral(50,950);
+  // Double_t origNORM = rhist->Integral(50,950);
 
   rhist->Reset();
 
   for(int i=1; i<((ohist->GetNbinsX())+1); i++){
-    
+
     double bcent = ohist->GetBinCenter(i);
     double bcont = ohist->Interpolate(bcent-mshift);
     // double bcont = ghist->Eval((bcent-mshift),0,"S");
- 
 
-    rhist->SetBinContent(i,bcont*mscale);	
+
+    rhist->SetBinContent(i,bcont*mscale);
   }
 
   Double_t newNORM = rhist->Integral(50,950);
@@ -84,7 +83,7 @@ extern TH1D* XShiftAndScale(TH1D* ohist, double mshift, double mscale, bool dora
   //  if(fabs(mshift)<0.00001) cout<<"WWWW  "<<origNORM<<" "<<newNORM<<endl;;
   //  cout<<"POEU "<<fabs(mshift)<<" "<<origNORM-newNORM<<" "<<(ohist->GetNbinsX())<<endl;
 
-  //  cout<<"NORMS "<<origNORM<<" "<<newNORM<<endl;  
+  //  cout<<"NORMS "<<origNORM<<" "<<newNORM<<endl;
   //  if(newNORM>0) rhist->Scale(origNORM/newNORM);
 
   return rhist;
@@ -101,13 +100,13 @@ extern double Chi2WithTemplate(TH1D* fhist,TH1D* ftemp, double noise){
   double chi2sum=0;
   double mNorm = fhist->Integral();
   double tNorm = ftemp->Integral();
-    
+
   if(tNorm!=1) // cout<<"TNORM NOT = TO 1.0!! "<<tNorm<<endl;
   if(tNorm==0) tNorm=1;
 
   for(int i=1; i<nbfh+1; i++){
 
-      // content of data hist      
+      // content of data hist
       double fbc = fhist->GetBinContent(i);
       // bin center of data hist
       double bcent = fhist->GetBinCenter(i);
@@ -116,12 +115,12 @@ extern double Chi2WithTemplate(TH1D* fhist,TH1D* ftemp, double noise){
       //      double tbc = (mNorm/tNorm)*(ftemp->GetBinContent(i));
       //double tbc = (ftemp->GetBinContent(i));
 
-      // find which bin in the template corresponds to the bin center in the data	
+      // find which bin in the template corresponds to the bin center in the data
       int wbin = ftemp->FindBin(bcent);
-      double tempval=0; 	
+      double tempval=0;
 
       // as long as the template value is not 0 or next to a point where the template is cutoff, interpolate
-      if( (ftemp->GetBinContent(wbin)!=0) && (ftemp->GetBinContent(wbin-1)!=0) && (ftemp->GetBinContent(wbin+1)!=0) ){	
+      if( (ftemp->GetBinContent(wbin)!=0) && (ftemp->GetBinContent(wbin-1)!=0) && (ftemp->GetBinContent(wbin+1)!=0) ){
      	 tempval = ftemp->Interpolate(bcent);
       }
       // if the template is after the cutoff, set tempval to 0
@@ -130,14 +129,14 @@ extern double Chi2WithTemplate(TH1D* fhist,TH1D* ftemp, double noise){
       if( (ftemp->GetBinContent(wbin-1)==0) || (ftemp->GetBinContent(wbin+1)==0) ) tempval=ftemp->GetBinContent(wbin);
 
       double mchi = (fbc-tempval)/noise;
-           
+
       if( (!gusefitrange) || (tempval!=0) ){
 	chi2sum+= (mchi*mchi);
 	degfree++;
       }
   }
 
-    
+
     //    chi2 = sqrt(chi2sum/((double)nbt));
   chi2 = chi2sum;
 
@@ -166,13 +165,13 @@ extern double Chi2WithTemplate(TH1D* fhist,TH1D* ftemp, double mshift, double ms
   double chi2sum=0;
   double mNorm = fhist->Integral();
   double tNorm = ftemp->Integral();
-    
+
   if(tNorm!=1) // cout<<"TNORM NOT = TO 1.0!! "<<tNorm<<endl;
   if(tNorm==0) tNorm=1;
 
   for(int i=1; i<nbfh+1; i++){
 
-      // content of data hist      
+      // content of data hist
       double fbc = fhist->GetBinContent(i);
       // bin center of data hist
       double bcent = fhist->GetBinCenter(i);
@@ -181,23 +180,23 @@ extern double Chi2WithTemplate(TH1D* fhist,TH1D* ftemp, double mshift, double ms
       //      double tbc = (mNorm/tNorm)*(ftemp->GetBinContent(i));
       //double tbc = (ftemp->GetBinContent(i));
 
-      // find which bin in the template corresponds to the bin center in the data	
+      // find which bin in the template corresponds to the bin center in the data
       int wbin = ftemp->FindBin(bcent-mshift);
-      double tempval=0; 	
+      double tempval=0;
 
       // as long as the template value is not 0 or next to a point where the template is cutoff, interpolate
 
-      double shiftx = bcent-mshift;     
+      double shiftx = bcent-mshift;
 
 
       bool inrange=false;
       if( (shiftx>gtlrange) &&  (shiftx<=gthrange) ){
 	 tempval = mscale*(ftemp->Interpolate(shiftx));
 	 inrange=true;
-      }	
+      }
 
       double mchi = (fbc-tempval)/noise;
-           
+
       if( (!gusefitrange) || (inrange) ){
 	chi2sum+= (mchi*mchi);
 	degfree++;
@@ -211,10 +210,10 @@ extern double Chi2WithTemplate(TH1D* fhist,TH1D* ftemp, double mshift, double ms
   //    chi2 = sqrt(chi2sum/((double)nbt));
   chi2 = chi2sum;
 
-  // cout<<degfree<<" "<<gdegfree_fixed<<" "<<nbfh<<endl;	
+  // cout<<degfree<<" "<<gdegfree_fixed<<" "<<nbfh<<endl;
 
  // if((degfree!=0) && (degfree!=15) ) cout<<"wtf "<<degfree<<" "<<mshift<<" "<<mscale<<" "<<endl;
- // if(degfree!=50) {chi2=555; degfree=1;}	
+ // if(degfree!=50) {chi2=555; degfree=1;}
  //  if( fabs(fabs(mshift)-50)<1) cout<<" tt "<<chi2<<" "<<degfree<<" "<<mshift<<" "<<mscale<<" "<<endl;
 
 
@@ -224,7 +223,7 @@ extern double Chi2WithTemplate(TH1D* fhist,TH1D* ftemp, double mshift, double ms
   // cout<<"THE CHI "<<chi2<<" "<<gdegfree<<" "<<(chi2/gdegfree)<<" "<<gusefitrange<<endl;
 
 //  if((chi2/(gdegfree+3))<1.5) cout<<mshift<<" "<<mscale<<endl;
-	
+
   return chi2/(gdegfree+3);
 }
 
@@ -247,13 +246,13 @@ extern void fit_template_fcn(Int_t&, Double_t*, Double_t &f, Double_t* par, Int_
     //    tfscale = maxtemp/maxhist;
     //   cout<<"SCALE "<<tfscale<<endl;
   }
-  
-  //  TH1D* gtempadj = XShiftAndScale(gtemplate,tfoffset,tfscale);  
-  //  f = Chi2WithTemplate(ghistadj,gtempadj,tfnoise); 
-  //  f = Chi2WithTemplate(ghist,gtempadj,tfnoise);  
-  f = Chi2WithTemplate(ghist,gtemplate,tfoffset,tfscale,tfnoise);  
 
- 
+  //  TH1D* gtempadj = XShiftAndScale(gtemplate,tfoffset,tfscale);
+  //  f = Chi2WithTemplate(ghistadj,gtempadj,tfnoise);
+  //  f = Chi2WithTemplate(ghist,gtempadj,tfnoise);
+  f = Chi2WithTemplate(ghist,gtemplate,tfoffset,tfscale,tfnoise);
+
+
 
 //  delete gtempadj;
 
@@ -277,13 +276,13 @@ Double_t TemplateFit::CalculateFCN(Double_t &f, Double_t *par){
 }
 
 
-TemplateFit::TemplateFit() 
+TemplateFit::TemplateFit()
 {
-	TemplateFit("derp"); 
+	TemplateFit("derp");
 }
 
-TemplateFit::TemplateFit(TString tname) 
-{ 
+TemplateFit::TemplateFit(TString tname)
+{
   // Create an Event object.
    // When the constructor is invoked for the first time, the class static
    // variable fgTracks is 0 and the TClonesArray fgTracks is created.
@@ -307,7 +306,7 @@ TemplateFit::TemplateFit(TString tname)
     fgTemplateFit = new TemplateFit(fgname);
   }
   */
-  
+
 
   tempcount=0;
 
@@ -321,17 +320,17 @@ TemplateFit::TemplateFit(TString tname)
   fulltname+=tname;
   _ptemplate = new TH1D(fulltname,fulltname,_nb,_lb,_hb);
 
-  gdegfree_fixed=0;  
+  gdegfree_fixed=0;
 
   fMinuitScaleAndOffset = new TMinuit(1);
   fMinuitScaleAndOffset->SetPrintLevel(-1);
   fMinuitScaleAndOffset->SetMaxIterations(500);
 }
 
- 
+
 TemplateFit::~TemplateFit() {
 	Clear();
-}  
+}
 
 bool TemplateFit::IsFirstTemp()
 {
@@ -373,17 +372,17 @@ void TemplateFit::AddTemplate(TH1D* ntemp){
     _ptemplate = (TH1D*) (ntemp->Clone());
     first_template=false;
   } else{
-    //    cout<<"not first template"<<endl;    
+    //    cout<<"not first template"<<endl;
     _ptemplate->Add(ntemp);
   }
-  
+
   tempcount++;
 }
 
 void TemplateFit::AddTemplateNoNorm(TH1D* ntemp){
-  
+
   _ptemplate->Add(ntemp);
-  
+
   double pNORM = _ptemplate->Integral();
   if(pNORM>0) _ptemplate->Scale(1/pNORM);
 
@@ -425,14 +424,14 @@ void TemplateFit::AddSmoothedTemplate(TH1D* sthist){
 
 /*
    if( (theT>(sthist->GetBinCenter(1))) && (theT<(sthist->GetBinCenter(Tnbins))))
-   {	
+   {
    bcont = sthist->Interpolate(theT);
    }
    if(theT<(sthist->GetBinCenter(1))) {bcont = (sthist->GetBinContent(1));}
-   if(theT>(sthist->GetBinCenter(Tnbins))) {bcont = (sthist->GetBinContent(Tnbins));}		
+   if(theT>(sthist->GetBinCenter(Tnbins))) {bcont = (sthist->GetBinContent(Tnbins));}
 */
 
-   newthist->SetBinContent(i,bcont);	
+   newthist->SetBinContent(i,bcont);
   }
 
  // this->CalcFixedDegFree(newthist);
@@ -517,7 +516,7 @@ void TemplateFit::FitWithTemplate(TH1D* fhist, double &moffset, double &mscale, 
   flag = fMinuitScaleAndOffset->Migrad();
 
   Double_t toffset,toffseterr,tscale,tscaleerr;
-  fMinuitScaleAndOffset->GetParameter(0,toffset,toffseterr);  
+  fMinuitScaleAndOffset->GetParameter(0,toffset,toffseterr);
   fMinuitScaleAndOffset->GetParameter(1,tscale,tscaleerr);
 
   delete [] arglist;
@@ -532,7 +531,7 @@ void TemplateFit::FitWithTemplate(TH1D* fhist, double &moffset, double &mscale, 
   //  mscale = maxtemp/maxhist;
   }
 
-  //  TH1D* gtempadj = XShiftAndScale(thist,moffset,mscale); 
+  //  TH1D* gtempadj = XShiftAndScale(thist,moffset,mscale);
   //  mchi2 = Chi2WithTemplate(fhist,gtempadj,10.0);
   mchi2 = gchi2/(gdegfree+3);
   // delete gtempadj;
@@ -585,8 +584,7 @@ void TemplateFit::SetPulseHist(TH1D* phist){
 void TemplateFit::Clear(Option_t * /*option*/)
 {
 //   fWaveforms->Clear("C"); //will also call Track::Clear
-//	for(Int_t i=0;i<4;i++) {wav[i].Clear();}   
+//	for(Int_t i=0;i<4;i++) {wav[i].Clear();}
 //   delete fWaveforms;
-   
-}
 
+}

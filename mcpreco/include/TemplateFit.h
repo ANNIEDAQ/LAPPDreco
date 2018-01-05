@@ -8,11 +8,10 @@
 #include <TH1F.h>
 #include "TClonesArray.h"
 #include "TMinuit.h"
-#include "TSplineFit.h"
 
-class TemplateFit: public TObject { 
+class TemplateFit: public TObject {
 
-private: 
+private:
 
   TH1D* _ptemplate;
   TH1D* _phist;
@@ -23,17 +22,17 @@ private:
   double _noise;
   TMinuit* fMinuitScaleAndOffset;
 
-public: 
+public:
 
   //  static void fit_template_fcn(Int_t&, Double_t*, Double_t &f, Double_t* par, Int_t);
 
   TemplateFit(TString tname);
-  TemplateFit(); 
-  virtual ~TemplateFit(); 
+  TemplateFit();
+  virtual ~TemplateFit();
   void Clear(Option_t *option ="");
   void AddTemplate(TH1D* ntemp);
   void AddTemplateNoNorm(TH1D* ntemp);
-  void AddSmoothedTemplate(TH1D* stemp);	
+  void AddSmoothedTemplate(TH1D* stemp);
   void SetTemplate(TH1D* ntemp);
   void Combine(TH1D* ohist,double mshift,double mscale);
   void SetPulseHist(TH1D*);
@@ -53,9 +52,9 @@ public:
   void FitWithTemplate(TH1D* fhist, double &moffset, double &mscale, double &mchi2);
 
 
-  ClassDef(TemplateFit,1) 
+  ClassDef(TemplateFit,1)
 
-}; 
+};
 
 extern TSplineFit* tshist;
 extern TH1D* gtemplate;
@@ -73,4 +72,4 @@ extern int gtlbin;
 extern int gthbin;
 extern int gdegfree_fixed;
 
-#endif  
+#endif

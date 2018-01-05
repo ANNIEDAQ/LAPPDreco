@@ -31,6 +31,7 @@
 #include "TH2D.h"
 #include "TStopwatch.h"
 #include "UVevent.h"
+#include "Waveform.h"
 #include "TRandom3.h"
 
 using namespace std;
@@ -105,7 +106,7 @@ vector<float>		GRange;
 TRandom3* mrand = new TRandom3(12344222);
 
 
-void SetParameters(char *par);
+void SetParameters(const char *par);
 //Slewing correction
 int		ProfileMode = 0;
 int		BinSizeMode = 1;
@@ -541,7 +542,7 @@ void SetParameters(char* par) {
 //----------------------------------------------------------------------------------------------
 void SetVarsForAnalysis(UVevent* fevent) {
 	//--------- Calculate variables of interest ------
-	float t[4], q[4];
+	float t[4];
 	t[0] = ((Waveform*)(fevent->fwav->ConstructedAt(0)))->time;
 	t[1] = ((Waveform*)(fevent->fwav->ConstructedAt(1)))->time;
 }

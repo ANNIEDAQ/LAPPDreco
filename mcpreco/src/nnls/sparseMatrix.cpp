@@ -1,4 +1,4 @@
-// File: sparseMatrix.cc -- implements sparse matrix functionality 
+// File: sparseMatrix.cc -- implements sparse matrix functionality
 
 // Author: Suvrit Sra <suvrit@tuebingen.mpg.de>
 // (c) Copyright 2010   Suvrit Sra
@@ -21,7 +21,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#include "sparseMatrix.h"
+#include "nnls/sparseMatrix.h"
 #include <cstdio>
 #include <string>
 
@@ -31,7 +31,7 @@ int sparseMatrix::load(const char* fn, bool asbin)
 {
   if (asbin)
     return load_as_bin(fn);
-  else 
+  else
     return load_as_txt(fn);
   return 0;
 }
@@ -65,14 +65,14 @@ int sparseMatrix::load_as_bin(const char* fn)
   }
 
   setsize(m, n);
-  nnz = nz; 
+  nnz = nz;
   size = nnz;
 
   // Allocate the arrays
   cols = new size_t[n+1];
   ridx = new size_t[nz];
   data = new double[nz];
-   
+
   // Read the colptrs
   if (fread(cols, sizeof(size_t), n+1, fp) != n+1) {
     fprintf(stderr, "sparseMatrix:: Error reading colptrs from %s\n", fn);
@@ -104,16 +104,16 @@ int sparseMatrix::load_as_txt(const char* fn)
   std::string rows_file(prefix + "_row_ccs");
   std::string cols_file(prefix + "_col_ccs");
   std::string nz_file (prefix + "_txx_nz");
-  
+
   fprintf(stderr, "sparseMatrix: Nonzeros will be loaded from %s\n", nz_file.c_str());
-  
+
   FILE *fp;
   fp = fopen(dim.c_str(), "r");
   if (!fp) {
     fprintf(stderr, "sparseMatrix:: Could not open `%s'", dim.c_str());
     return -1;
   }
-  
+
   size_t m, n;  size_t nz;
   ssize_t r;
   r = fscanf(fp, "%zu %zu %zu", &m, &n, &nz);
@@ -137,10 +137,10 @@ int sparseMatrix::load_as_txt(const char* fn)
     return -2;
   }
 
-  for (size_t i = 0; i < n; i++) 
+  for (size_t i = 0; i < n; i++)
     r = fscanf(fp, "%zu", &cols[i]);
   fclose(fp);
-  
+
   // Now read in all the rowindices
   fp = fopen(rows_file.c_str(), "r");
   if (!fp) {
@@ -151,7 +151,7 @@ int sparseMatrix::load_as_txt(const char* fn)
     r = fscanf(fp, "%zu", &ridx[i]);
 
   fclose(fp);
-  
+
   // Now read in all the values
   fp = fopen(nz_file.c_str(), "r");
   if (!fp) {
@@ -170,7 +170,7 @@ double sparseMatrix::operator()   (size_t i, size_t j)
 {
   // size_t sz = cols[j+1]-cols[j];
   // int idx = binary_search(m_rowindx + m_colptrs[j], i, sz);
-  // if (idx != -1) 
+  // if (idx != -1)
   //   return (m_val + m_colptrs[j])[idx];
   return 0.0;
 }
@@ -180,7 +180,7 @@ double sparseMatrix::get (size_t i, size_t j)
 {
   // size_t sz = cols[j+1]-cols[j];
   // int idx = binary_search(m_rowindx + m_colptrs[j], i, sz);
-  // if (idx != -1) 
+  // if (idx != -1)
   //   return (m_val + m_colptrs[j])[idx];
   return 0.0;
 }
@@ -190,7 +190,7 @@ int sparseMatrix::set (size_t i, size_t j, double val)
 {
   return -1;
 }
-    
+
 /// Returns 'r'-th row into pre-alloced vector
 int sparseMatrix::get_row (size_t i, vector*& r)
 {
@@ -204,7 +204,7 @@ int sparseMatrix::get_col (size_t j, vector*& c)
 }
 
 /// Returns main or second diagonal (if p == true)
-int sparseMatrix::get_diag(bool p, vector*& d) 
+int sparseMatrix::get_diag(bool p, vector*& d)
 {
   return -1;
 }
@@ -252,7 +252,7 @@ int sparseMatrix::dot (bool transp, vector* x, vector*r)
       for (size_t j = cols[i]; j < cols[i+1]; j++) {
         yi += data[j] * px[ ridx[j] ];
       }
-      pr[i] = yi;  
+      pr[i] = yi;
     }
   }
   return 0;

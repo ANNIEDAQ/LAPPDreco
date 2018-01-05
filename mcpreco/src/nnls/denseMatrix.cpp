@@ -1,4 +1,4 @@
-// File: denseMatrix.cc -- implements dense matrix functionality 
+// File: denseMatrix.cc -- implements dense matrix functionality
 
 // Author: Suvrit Sra <suvrit@tuebingen.mpg.de>
 // (c) Copyright 2010   Suvrit Sra
@@ -21,12 +21,12 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#include "denseMatrix.h"
+#include "nnls/denseMatrix.h"
 #include <cstdio>
 
 #ifdef _HAVE_CBLAS
 #include <cblas.h>
-#endif 
+#endif
 
 using namespace nsNNLS;
 
@@ -69,7 +69,7 @@ int denseMatrix::load_as_bin(const char* fn)
     fprintf(stderr, "Could not allocate memory for matrix\n");
     return -4;
   }
-    
+
   if (fread(data, sizeof(double), size, fp) != size) {
     fprintf(stderr, "denseMatrix:: Error reading data from %s\n", fn);
     return -3;
@@ -89,7 +89,7 @@ int denseMatrix::load_as_txt(const char* fn)
   setsize(m, n);
   size = m*n;
   data = new double[size];
-  for (size_t i = 0; i < size; i++) 
+  for (size_t i = 0; i < size; i++)
     r = fscanf(fp, "%lf", &data[i]);
 
   fclose(fp);
@@ -114,7 +114,7 @@ int denseMatrix::get_diag(bool p, vector*& d)
 {
   return -1;
 }
-    
+
 /// Sets the specified row to the given vector
 int denseMatrix::set_row(size_t i, vector*& r)
 {
@@ -165,10 +165,10 @@ int denseMatrix::dot (bool transp, vector* x, vector*r)
 
 #ifdef _HAVE_CBLAS
   if (transp)
-    cblas_dgemv(CblasRowMajor, CblasTrans, nrows(), ncols(), 
+    cblas_dgemv(CblasRowMajor, CblasTrans, nrows(), ncols(),
                 1.0, data, ncols(), x->getData(), 1, 0.0, r->getData(), 1);
   else
-    cblas_dgemv(CblasRowMajor, CblasNoTrans, nrows(), ncols(), 
+    cblas_dgemv(CblasRowMajor, CblasNoTrans, nrows(), ncols(),
                 1.0, data, ncols(), x->getData(), 1, 0.0, r->getData(), 1);
 #else
   double* pr = r->getData();

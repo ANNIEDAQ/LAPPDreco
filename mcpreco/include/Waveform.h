@@ -2,6 +2,9 @@
 #define WAVEFORM
 
 #include "TemplateFit.h"
+#include "TSplineFit.h"
+
+using namespace std;
 
 class Waveform : public TObject {
 private:
@@ -34,7 +37,7 @@ private:
 
 public:
   int DoFFT;
-  int Samplerate; // sampling rate
+  double Samplerate; // sampling rate
   float Deltat;   // time per sample
   int DimSize;    // Number of samples
   float baseline; // Base line of this waveform
@@ -148,7 +151,7 @@ public:
   double AmpThreshold;
   double Fraction_CFD; // fraction of Attenuation
   int Delay_CFD;       //
-  char *AnalysisOption;
+  const char *AnalysisOption;
 
   Waveform();
   virtual ~Waveform();
@@ -231,7 +234,7 @@ public:
     DisWindow_min = fxmin;
     DisWindow_max = fxmax;
   }
-  char *SetAnalysisOption(char *foption) {
+  const char *SetAnalysisOption(const char *foption) {
     AnalysisOption = foption;
     return AnalysisOption;
   }
@@ -246,7 +249,7 @@ public:
   TSplineFit *GetWavSplineFit() const { return fsplinewav; }
   ClassDef(Waveform, 2)
 
-      float slopeL;
+  float slopeL;
   float slopeR;
   float interceptL;
   float interceptR;
@@ -256,6 +259,5 @@ public:
   vector<int> HighBound;
   vector<int> LowBound;
 };
-
 
 #endif

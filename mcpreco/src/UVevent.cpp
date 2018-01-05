@@ -21,7 +21,7 @@
 #include <TFile.h>
 #include <TCanvas.h>
 
-#include "nnls.h"
+#include "nnls/nnls.h"
 
 #include <iostream>
 

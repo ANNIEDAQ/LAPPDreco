@@ -8,10 +8,10 @@ ROOTLIBS      = $(shell root-config --libs)
 ROOTGLIBS     = $(shell root-config --glibs)
 
 # Linux with egcs
-INC := -I include
+INC := -isystem include
 CC := g++
-CFLAGS := -g -Wall -Werror -fPIC $(ROOTCFLAGS)
-LIBS := $(ROOTLIBS) 
+CFLAGS := -g -Wall -Werror -Wno-unused-variable -Wno-unused-but-set-variable -fPIC $(ROOTCFLAGS)
+LIBS := $(ROOTLIBS)
 
 SRCDIR := src
 BUILDDIR := build

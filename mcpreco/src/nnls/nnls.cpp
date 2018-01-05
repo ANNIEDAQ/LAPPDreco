@@ -1,4 +1,4 @@
-// File: nnls.cc 
+// File: nnls.cc
 // Author: Suvrit Sra
 // Time-stamp: <08 March 2011 01:40:04 PM CET --  suvrit>
 // nnls solver
@@ -21,7 +21,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#include "nnls.h"
+#include "nnls/nnls.h"
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
@@ -50,11 +50,11 @@ int nnls::optimize()
     step = computeBBStep();
 
     x->scalePlusAdd(-step, g); // x = x - step*gradient
-    
+
     // project
     for (size_t i = 0; i < x->length(); i++)
       if (px[i] < 0) px[i] = 0.0;
- 
+
     computeObjGrad();
     // check the descent condition
     if (out.iter % M == 0) {
@@ -88,7 +88,7 @@ void nnls::computeObjGrad()
   ax->sub(b);        // ax = ax - b
   double d;
   d = ax->norm2();
-  double tm  = (double) (clock() - out.start) / CLOCKS_PER_SEC; 
+  double tm  = (double) (clock() - out.start) / CLOCKS_PER_SEC;
   out.obj->set(out.iter, 0.5*d*d);
   out.time->set(out.iter, tm);
   A->dot(matrix::TRAN, ax, g);          // A'(ax)
@@ -142,7 +142,7 @@ double nnls::computeBBStep()
   // Use xdelta and gdelta to compute BB step
   double step = 0.0;
   double nr;
-  double dr;  
+  double dr;
 
   if (out.iter % 2) {
     nr = xdelta->ddot(xdelta);
@@ -153,7 +153,7 @@ double nnls::computeBBStep()
   }
 
   //fprintf(stderr, " nr / dr = %lf / %lf\n", nr, dr);
-  if (nr == 0) return 0; 
+  if (nr == 0) return 0;
   step = nr / dr;
 
   step *= beta;
@@ -172,8 +172,8 @@ void nnls::checkDescentUpdateBeta()
   for (size_t i = 0; i < g->length(); i++)
     d += grad[i]*(prx[i]-px[i]);
   d *= sigma;
-  
-  d = out.obj->get(out.iter - M) - out.obj->get(out.iter) - d; 
+
+  d = out.obj->get(out.iter - M) - out.obj->get(out.iter) - d;
 
   //fprintf(stderr, "Descent value: %g - %g - %g, beta=%f\n", out.obj->get(out.iter -M), out.obj->get(out.iter - 2), d, beta*decay);
 

@@ -1,4 +1,8 @@
 #include "Waveform.h"
+#include "TMath.h"
+#include "TVirtualFFT.h"
+#include "nnls/nnls.h"
+#include "TSpectrum.h"
 
 using namespace std;
 
@@ -234,9 +238,9 @@ void Waveform::Setup_nnls() {
   TFile *tt = new TFile("pulsecharacteristics.root");
   TH1D *tempp = (TH1D *)tt->Get("templatepulse;1");
   int bincount = 1;
-  for (int i = 0; i < m; i++) {
+  for (int i = 0; i < (int) m; i++) {
     bincount = 1;
-    for (int j = 0; j < m; j++) {
+    for (int j = 0; j < (int) m; j++) {
       if (bincount > 0 && bincount <= 30 * steps && j >= i &&
           j <= (i + 30 * steps)) {
         if (tempp->GetBinContent((100 / steps) * (bincount)) < 0) {
@@ -257,8 +261,8 @@ void Waveform::Setup_nnls() {
   double *vv = new double[m];
 
   // fill vv (array version of b)
-  for (int i = 0; i < m; i++) {
-    if (i < 30 * steps || i > (m - 30 * steps)) {
+  for (int i = 0; i < (int)m; i++) {
+    if (i < 30 * steps || i > ((int)m - 30 * steps)) {
       vv[i] = 0;
     } else {
       vv[i] = hwav_raw->GetBinContent((i - 30 * steps) / steps);
@@ -275,15 +279,15 @@ void Waveform::Setup_nnls() {
   vecX = solver->getSolution();
 
   // fill xvector histogram using vecX (vector version of x)
-  for (int i = 0; i < m; i++) {
-    if (i + 1 - 28 * steps > 0 && i > 30 * steps && i < (m - 30 * steps)) {
+  for (int i = 0; i < (int) m; i++) {
+    if (i + 1 - 28 * steps > 0 && i > 30 * steps && i < ((int) m - 30 * steps)) {
       xvector->SetBinContent(i + 1 - 28 * steps, vecX->getData()[i]);
     }
   }
 
   // create output based on templates and xvector
   double outputa[m];
-  for (int i = 0; i < m; i++)
+  for (int i = 0; i < (int) m; i++)
     outputa[i] = 0;
 
   for (int i = 0; i < matA->nrows(); i++) {
@@ -293,7 +297,7 @@ void Waveform::Setup_nnls() {
   }
 
   for (int i = 0; i < matA->ncols(); i++) {
-    if (i > 30 * steps && i < (m - 30 * steps))
+    if (i > 30 * steps && i < ((int) m - 30 * steps))
       nnlsoutput->SetBinContent(i + 1 - 30 * steps, outputa[i]);
   }
 
@@ -376,7 +380,7 @@ float Waveform::Calculate_baseline2(float *fvol, int nottrig) {
 //============== CALCULATING THE BASELINE: THIRD METHOD ==============//
 // fit with sine
 
-void Waveform::Calculate_baseline3() {
+float Waveform::Calculate_baseline3() {
 
   TF1 *sinebline = new TF1("sinebline", "[0]+[1]*cos([2]*x+[3])", 0., 100000.);
 
@@ -385,6 +389,7 @@ void Waveform::Calculate_baseline3() {
   sinebline->SetParameter(2, 0.00055);
   sinebline->SetParameter(3, 0.);
   hwav_raw->Fit("sinebline", "q");
+  return hwav_raw //TODO what is the proper return value
 }
 
 int Waveform::Calculate_Peaks() {
@@ -452,6 +457,9 @@ float Waveform::Calculate_Charge() {
       hwav->Integral(FitWindow_min / Deltat, FitWindow_max / Deltat) * Deltat /
       50);
   gain = qfast / 1.6e-4; // number of electrons
+
+  // TODO what is the charge
+  return 0;
 }
 
 float Waveform::Waveform_Filter1(float CutoffFrequency, float finput) {
@@ -1076,7 +1084,7 @@ int Waveform::Calculate_Peaks_nnls() {
     }
   }
 
-  for (int i = 0; i < HighBound.size(); i++) {
+  for (int i = 0; i < (int) HighBound.size(); i++) {
     cout << "Bounds: " << LowBound[i] << " " << HighBound[i] << endl;
   }
 
@@ -1096,18 +1104,15 @@ void Waveform::Calculate_Variables_nnls(int Npulses) {
   TH1D *REBINNEDhwav =
       new TH1D("rebinned", "rebinned", DimSize * steps, 0, DimSize * Deltat);
   for (int i = 0; i < DimSize * steps; i++) {
-    REBINNEDhwav->SetBinContent(
-        i + 1, hwav_raw->GetBinContent(
-                   (i + 1) / (steps - 0.01))); // replace with formula that
-                                               // works with other step numbers
-                                               // besides 2
+    REBINNEDhwav->SetBinContent(i + 1,
+      hwav_raw->GetBinContent((i + 1) / (steps - 0.01)));
   }
 
   for (int p = 0; p < pulses; p++) {
     // CALCULATING CHI2~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     vchi2[p] = 0;
     if (trigno >= 0) {
-      for (int i = 0; i < m - 60 * steps; i++) {
+      for (int i = 0; i < (int) m - 60 * steps; i++) {
         if (LowBound[p] < i && HighBound[p] > i) {
           if (REBINNEDhwav->GetBinContent(i + 1) != 0) {
             vchi2[p] += TMath::Abs(((nnlsoutput->GetBinContent(i + 1) -
@@ -1202,7 +1207,7 @@ void Waveform::Analyze() {
   bool nnls = true;
   if (nnls) {
     cout << "using nnls algorithm" << endl;
-    if (trigno = 1) {
+    if (trigno) {
       Setup_nnls();
       int pulses = Calculate_Peaks_nnls();
       Calculate_Variables_nnls(pulses);
