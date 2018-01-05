@@ -21,6 +21,8 @@
 #include <TFile.h>
 #include <TCanvas.h>
 
+#include "nnls.h"
+
 #include <iostream>
 
 using namespace std;

@@ -1,6 +1,7 @@
 #ifndef WAVEFORM
 #define WAVEFORM
 
+#include "TemplateFit.h"
 
 class Waveform : public TObject {
 private:
