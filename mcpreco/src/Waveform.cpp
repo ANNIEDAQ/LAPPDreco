@@ -1,4 +1,7 @@
 #include "Waveform.h"
+
+using namespace std;
+
 Waveform::Waveform() {
   //	cout<<"Class Waveform"<<endl;
   //	hwav = new TH1F("wav","wav",DimSize,0,103.2);
