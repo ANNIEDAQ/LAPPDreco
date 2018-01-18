@@ -389,7 +389,7 @@ float Waveform::Calculate_baseline3() {
   sinebline->SetParameter(2, 0.00055);
   sinebline->SetParameter(3, 0.);
   hwav_raw->Fit("sinebline", "q");
-  return hwav_raw //TODO what is the proper return value
+  return 0; //TODO what is the proper return value
 }
 
 int Waveform::Calculate_Peaks() {
@@ -458,8 +458,7 @@ float Waveform::Calculate_Charge() {
       50);
   gain = qfast / 1.6e-4; // number of electrons
 
-  // TODO what is the charge
-  return 0;
+  return gain;
 }
 
 float Waveform::Waveform_Filter1(float CutoffFrequency, float finput) {

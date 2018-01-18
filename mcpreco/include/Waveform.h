@@ -2,7 +2,6 @@
 #define WAVEFORM
 
 #include "TemplateFit.h"
-#include "TSplineFit.h"
 
 using namespace std;
 
